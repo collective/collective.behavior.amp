@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+      name="collective.behavior.amp"
+      interface="collective.behavior.amp.interfaces.IAddOnLayer"
+      />
+</layers>

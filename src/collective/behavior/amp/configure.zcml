@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.behavior.amp">
+
+  <five:registerPackage package="." />
+
+  <include package="Products.CMFCore" file="permissions.zcml" />
+
+  <include package=".browser" />
+
+  <include file="behaviors.zcml" />
+  <include file="profiles.zcml" />
+
+</configure>

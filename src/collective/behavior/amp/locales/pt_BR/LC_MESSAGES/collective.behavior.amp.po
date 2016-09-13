@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-09-13 17:40+0000\n"
+"PO-Revision-Date: 2016-09-13 14:41-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"Language: pt_BR\n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: collective/behavior/amp/behaviors.zcml:15
+msgid "AMP"
+msgstr "AMP"
+
+#: collective/behavior/amp/behaviors.zcml:15
+msgid "Enables support for Accelerated Mobile Pages."
+msgstr "Habilita o suporte para Accelerated Mobile Pages."
+
+#: collective/behavior/amp/profiles.zcml:14
+msgid "Support for Accelerated Mobile Pages on Dexterity-based content types."
+msgstr "Suporte para Accelerated Mobile Pages em tipos de conteúdo Dexterity."
+
+#: collective/behavior/amp/profiles.zcml:23
+msgid "Uninstalls collective.behavior.amp."
+msgstr "Desinstala o collective.behavior.amp."
+
+#: collective/behavior/amp/profiles.zcml:14
+msgid "collective.behavior.amp"
+msgstr "collective.behavior.amp"
+
+#: collective/behavior/amp/profiles.zcml:23
+msgid "collective.behavior.amp: uninstall"
+msgstr "collective.behavior.amp: uninstall"

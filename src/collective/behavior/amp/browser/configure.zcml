@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.behavior.amp" >
+
+  <browser:page
+      class=".AMPView"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      layer="collective.behavior.amp.interfaces.IAddOnLayer"
+      name="amp"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      class=".AMPViewlet"
+      layer="collective.behavior.amp.interfaces.IAddOnLayer"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      name="collective.behavior.amp"
+      permission="zope2.View"
+      template="viewlet.pt"
+      />
+
+</configure>

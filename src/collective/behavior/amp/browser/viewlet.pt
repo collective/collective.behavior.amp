@@ -1,0 +1,4 @@
+<tal:head condition="view/enabled">
+  <link rel="amphtml" href=""
+      tal:attributes="href string:${context/absolute_url}/@@amp">
+</tal:head>
