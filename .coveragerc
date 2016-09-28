@@ -1,2 +1,2 @@
 [report]
-include = src/brasil/gov/vlibrasnews/*
+include = src/collective/behavior/amp/*
