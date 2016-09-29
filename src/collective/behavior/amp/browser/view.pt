@@ -23,6 +23,39 @@
   </head>
   <body>
     <h1 tal:content="context/title">Title</h1>
+
+    <div class="amp-byline" tal:condition="view/show_byline">
+      <span tal:condition="view/author">
+        <tal:i18n i18n:translate="label_by_author">
+            by
+          <span tal:content="view/author"
+              i18n:name="author">Roland Barthes</span>
+        </tal:i18n>
+          —
+      </span>
+
+      <tal:dates define="published view/published;
+                         modified context/modified">
+        <span tal:condition="published">
+          <span i18n:translate="box_published">
+            published
+          </span>
+          <span tal:content="python:view.get_localized_time(published)">
+            August 16, 2001 at 23:35:59
+          </span><tal:sep condition="modified">,</tal:sep>
+        </span>
+
+        <span tal:condition="modified">
+          <span i18n:translate="box_last_modified">
+            last modified
+          </span>
+          <span tal:content="python:view.get_localized_time(modified)">
+            August 16, 2001 at 23:35:59
+          </span>
+        </span>
+      </tal:dates>
+    </div>
+
     <p tal:condition="context/description"
         tal:content="context/description">Description</p>
     <amp-img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA1BMVEXy8vJkA4prAAAAC0lEQVQI12MgEQAAADAAAWV61nwAAAAASUVORK5CYII=" alt="Gray Square" height="400" width="800"></amp-img>

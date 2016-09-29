@@ -20,6 +20,22 @@ class AMPViewTestCase(unittest.TestCase):
         self.view = api.content.get_view(
             name='amp', context=self.newsitem, request=self.request)
 
+    def test_byline(self):
+        # byline must contain the name of the author
+        # and the last modification date only
+        amp = etree.HTML(self.view())
+        text = ''.join(amp.find('.//div[@class="amp-byline"]').itertext())
+        self.assertIn('test_user_1_', text)
+        self.assertNotIn('published', text)
+        self.assertIn('last modified', text)
+
+        # mark item as published
+        from DateTime import DateTime
+        self.newsitem.effective_date = DateTime()
+        amp = etree.HTML(self.view())
+        text = ''.join(amp.find('.//div[@class="amp-byline"]').itertext())
+        self.assertIn('published', text)
+
     def test_amp_analytics(self):
         amp = etree.HTML(self.view())
         self.assertIsNotNone(amp.find('.//amp-analytics'))
