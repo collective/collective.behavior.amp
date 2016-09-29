@@ -33,4 +33,3 @@ class AMPViewTestCase(unittest.TestCase):
         amp = etree.HTML(self.view())
         self.assertEqual(
             amp.find('*//amp-analytics/script').text, u'"foo": "bar"')
-
