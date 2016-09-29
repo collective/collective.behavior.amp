@@ -9,6 +9,11 @@
 
   <include package="Products.CMFCore" file="permissions.zcml" />
 
+  <permission
+      id="collective.behavior.amp.Setup"
+      title="collective.behavior.amp: Setup"
+      />
+
   <include package=".browser" />
 
   <include file="behaviors.zcml" />

@@ -42,6 +42,7 @@ setup(
     install_requires=[
         'plone.api',
         'plone.app.layout',
+        'plone.app.registry',
         'plone.autoform',
         'plone.behavior',
         'plone.dexterity',
@@ -50,16 +51,17 @@ setup(
         'Products.CMFPlone >=4.3',
         'Products.GenericSetup',
         'setuptools',
-        'zope.component',
         'zope.i18nmessageid',
         'zope.interface',
         'zope.schema',
     ],
     extras_require={
         'test': [
+            'AccessControl',
             'plone.app.robotframework',
             'plone.app.testing [robot]',
             'plone.browserlayer',
+            'plone.registry',
             'plone.testing',
             'robotsuite',
             'zope.component',

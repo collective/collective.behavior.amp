@@ -28,5 +28,9 @@
     <amp-img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA1BMVEXy8vJkA4prAAAAC0lEQVQI12MgEQAAADAAAWV61nwAAAAASUVORK5CYII=" alt="Gray Square" height="400" width="800"></amp-img>
     <p tal:condition="context/text/output|nothing"
         tal:content="structure context/text/output">Body text</p>
+
+    <amp-analytics>
+      <script type="application/json" tal:content="view/amp_analytics"></script>
+    </amp-analytics>
   </body>
 </html>

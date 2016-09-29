@@ -3,6 +3,11 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.behavior.amp" >
 
+  <browser:resourceDirectory
+      name="collective.behavior.amp"
+      directory="static"
+      />
+
   <browser:page
       class=".AMPView"
       for="plone.dexterity.interfaces.IDexterityContent"
@@ -18,6 +23,13 @@
       name="collective.behavior.amp"
       permission="zope2.View"
       template="viewlet.pt"
+      />
+
+  <browser:page
+      class=".controlpanel.AMPSettingsControlPanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      name="amp-settings"
+      permission="collective.behavior.amp.Setup"
       />
 
 </configure>

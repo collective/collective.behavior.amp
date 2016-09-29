@@ -24,6 +24,13 @@ class InstallTestCase(unittest.TestCase):
     def test_addon_layer(self):
         self.assertIn(IAddOnLayer, registered_layers())
 
+    def test_setup_permission(self):
+        permission = 'collective.behavior.amp: Setup'
+        roles = self.portal.rolesOfPermission(permission)
+        roles = [r['name'] for r in roles if r['selected']]
+        expected = ['Manager', 'Site Administrator']
+        self.assertListEqual(roles, expected)
+
     def test_version(self):
         profile = 'collective.behavior.amp:default'
         setup_tool = self.portal['portal_setup']

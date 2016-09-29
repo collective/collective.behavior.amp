@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="collective.behavior.amp"
+    purge="False">
+  <configlet title="AMP"
+      action_id="amp"
+      appId="collective.behavior.amp"
+      category="Products"
+      condition_expr=""
+      url_expr="string:${portal_url}/@@amp-settings"
+      icon_expr="string:${portal_url}/++resource++collective.behavior.amp/amp-icon.png"
+      visible="True"
+      i18n:attributes="title">
+    <permission>collective.behavior.amp: Setup</permission>
+  </configlet>
+</object>
