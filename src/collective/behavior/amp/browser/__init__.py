@@ -3,10 +3,12 @@
 from collections import OrderedDict
 from collective.behavior.amp.behaviors import IAMP
 from collective.behavior.amp.interfaces import IAMPSettings
+from collective.behavior.amp.utils import Html2Amp
 from cStringIO import StringIO
 from PIL import Image
 from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
+from plone.app.textfield.interfaces import IRichTextValue
 from plone.formwidget.namedfile.converter import b64decode_file
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -113,6 +115,15 @@ class AMPView(BrowserView):
     def amp_analytics(self):
         amp_analytics = IAMPSettings.__identifier__ + '.amp_analytics'
         return api.portal.get_registry_record(amp_analytics)
+
+    @property
+    def text(self):
+        if not getattr(self.context, 'text', False):
+            return
+        if not IRichTextValue.providedBy(self.context.text):
+            return
+        util = Html2Amp()
+        return util(self.context.text.output)
 
 
 class AMPViewlet(ViewletBase):
