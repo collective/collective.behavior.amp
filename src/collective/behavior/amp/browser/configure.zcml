@@ -32,4 +32,12 @@
       permission="collective.behavior.amp.Setup"
       />
 
+  <browser:page
+      class=".helper.PublisherLogoDownload"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      layer="collective.behavior.amp.interfaces.IAddOnLayer"
+      name="amp-publisher-logo"
+      permission="zope.Public"
+      />
+
 </configure>
