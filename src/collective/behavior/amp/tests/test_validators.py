@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from collective.behavior.amp.validators import isJSON
+from collective.behavior.amp.tests.utils import load_b64encoded_image
+from collective.behavior.amp.validators import is_json
+from collective.behavior.amp.validators import is_valid_logo
+from zope.interface import Invalid
 
 import unittest
 
@@ -23,11 +26,30 @@ VALID_JSON = """
 
 class ValidatorsTestCase(unittest.TestCase):
 
-    def test_isJSON_default_value(self):
-        self.assertTrue(isJSON(u''))
+    def test_is_json_empty_value(self):
+        self.assertTrue(is_json(u''))
 
-    def test_isJSON_valid_value(self):
-        self.assertTrue(isJSON(VALID_JSON))
+    def test_is_json_valid_value(self):
+        self.assertTrue(is_json(VALID_JSON))
 
-    def test_isJSON_invalid_value(self):
-        self.assertFalse(isJSON(u'invalid'))
+    def test_is_json_invalid_value(self):
+        self.assertFalse(is_json(u'invalid'))
+
+    def test_is_valid_logo_empty_value(self):
+        self.assertTrue(is_valid_logo(None))
+
+    def test_is_valid_logo(self):
+        logo = load_b64encoded_image('logo-plone-ok.png')
+        self.assertTrue(is_valid_logo(logo))
+
+    def test_is_valid_logo_square(self):
+        # logo should have a wide aspect ratio
+        logo = load_b64encoded_image('logo-plone-square.png')
+        with self.assertRaises(Invalid):
+            is_valid_logo(logo)
+
+    def test_is_valid_logo_bigger(self):
+        # logo should be no wider than 600px, and no taller than 60px
+        logo = load_b64encoded_image('logo-plone-bigger.png')
+        with self.assertRaises(Invalid):
+            is_valid_logo(logo)
