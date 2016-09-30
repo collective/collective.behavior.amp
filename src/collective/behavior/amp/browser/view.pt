@@ -135,6 +135,23 @@
 
     <p tal:replace="structure view/text">Body text</p>
 
+    <div class="amp-related">
+      <span i18n:translate="label_related_items">Related content</span>
+      <ul tal:define="site_properties context/portal_properties/site_properties;
+                      use_view_action site_properties/typesUseViewActionInListings|python:()">
+        <tal:related repeat="item view/related_items">
+          <li tal:define="item_type item/portal_type;
+                          item_url item/getURL|item/absolute_url;
+                          item_url python:(item_type in use_view_action) and item_url+'/view' or item_url">
+            <a tal:attributes="href  item_url"
+               tal:content="item/pretty_title_or_id">
+                Related Item
+            </a>
+          </li>
+        </tal:related>
+      </ul>
+    </div>
+
     <amp-analytics>
       <script type="application/json" tal:content="view/amp_analytics"></script>
     </amp-analytics>

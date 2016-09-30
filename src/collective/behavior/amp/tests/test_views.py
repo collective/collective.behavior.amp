@@ -5,6 +5,9 @@ from collective.behavior.amp.testing import INTEGRATION_TESTING
 from collective.behavior.amp.tests.utils import load_b64encoded_image
 from lxml import etree
 from plone import api
+from z3c.relationfield import RelationValue
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
 
 import unittest
 
@@ -133,6 +136,21 @@ class AMPViewTestCase(unittest.TestCase):
         amp = etree.HTML(self.view())
         self.assertEqual(
             amp.find('*//amp-analytics/script').text, u'"foo": "bar"')
+
+    def test_related_items(self):
+        related = self.view.related_items()
+        self.assertEqual(len(related), 0)
+
+        with api.env.adopt_roles(['Manager']):
+            self.related1 = api.content.create(
+                container=self.portal, type='News Item', title='Related 1')
+            self.related2 = api.content.create(
+                container=self.portal, type='News Item', title='Related 2')
+        intids = getUtility(IIntIds)
+        self.newsitem.relatedItems = [RelationValue(intids.getId(self.related1)),
+                                      RelationValue(intids.getId(self.related2))]
+        related = self.view.related_items()
+        self.assertEqual([x.id for x in related], ['related-1', 'related-2'])
 
 
 class HelperViewTestCase(unittest.TestCase):

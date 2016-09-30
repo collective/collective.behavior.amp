@@ -16,6 +16,15 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import json
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('plone.app.relationfield')
+except pkg_resources.DistributionNotFound:
+    HAS_RELATIONFIELD = False
+else:
+    from plone.app.relationfield.behavior import IRelatedItems
+    HAS_RELATIONFIELD = True
 
 if HAS_SOCIALLIKE:
     from sc.social.like.interfaces import ISocialLikeSettings
@@ -165,6 +174,39 @@ class AMPView(BrowserView):
             return
         util = Html2Amp()
         return util(self.context.text.output)
+
+    def related_items(self):
+        """Return a list of brains with related items.
+
+        :type related: list of relations
+        :return: list of catalog brains
+        """
+        res = ()
+
+        if HAS_RELATIONFIELD and IRelatedItems.providedBy(self.context):
+            related = self.context.relatedItems
+            if not related:
+                return ()
+            res = self.related2brains(related)
+
+        return res
+
+    def related2brains(self, related):
+        """Return a list of brains based on a list of relations. Will filter
+        relations if the user has no permission to access the content.
+
+        :param related: related items
+        :type related: list of relations
+        :return: list of catalog brains
+        """
+        catalog = api.portal.get_tool('portal_catalog')
+        brains = []
+        for r in related:
+            path = r.to_path
+            # the query will return an empty list if the user has no
+            # permission to see the target object
+            brains.extend(catalog(path=dict(query=path, depth=0)))
+        return brains
 
 
 class AMPViewlet(ViewletBase):
