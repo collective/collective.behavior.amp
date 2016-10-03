@@ -138,8 +138,8 @@ class AMPViewTestCase(unittest.TestCase):
             amp.find('*//amp-analytics/script').text, u'"foo": "bar"')
 
     def test_related_items(self):
-        related = self.view.related_items()
-        self.assertEqual(len(related), 0)
+        amp = etree.HTML(self.view())
+        self.assertIsNone(amp.find('.//div[@class="amp-related"]'))
 
         with api.env.adopt_roles(['Manager']):
             self.related1 = api.content.create(
@@ -149,8 +149,10 @@ class AMPViewTestCase(unittest.TestCase):
         intids = getUtility(IIntIds)
         self.newsitem.relatedItems = [RelationValue(intids.getId(self.related1)),
                                       RelationValue(intids.getId(self.related2))]
-        related = self.view.related_items()
-        self.assertEqual([x.id for x in related], ['related-1', 'related-2'])
+
+        amp = etree.HTML(self.view())
+        self.assertIsNotNone(amp.find('.//div[@class="amp-related"]'))
+        self.assertEqual(len(amp.findall('.//div[@class="amp-related"]//a')), 2)
 
 
 class HelperViewTestCase(unittest.TestCase):
