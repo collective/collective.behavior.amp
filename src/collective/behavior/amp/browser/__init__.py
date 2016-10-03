@@ -91,6 +91,13 @@ class AMPView(BrowserView):
         return json.dumps(metadata, indent=2)
 
     @property
+    def portal_tabs(self):
+        """Return the list of portal tabs by calling a helper view."""
+        portal_tabs_view = api.content.get_view(
+            name='portal_tabs_view', context=self.context, request=self.request)
+        return portal_tabs_view.topLevelTabs()
+
+    @property
     def show_byline(self):
         # TODO: honor privacy settings
         return True
