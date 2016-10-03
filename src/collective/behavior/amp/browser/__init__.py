@@ -176,47 +176,54 @@ class AMPView(BrowserView):
         util = Html2Amp()
         return util(self.context.text.output)
 
-    def use_view_action(self):
+    def get_listing_view_action(self, item):
+        """Return the item's view action used in listings.
+        :param item: the item to be processed
+        :type item: catalog brain
+        :returns: the item's view action
+        :rtype: str
+        """
         if IS_PLONE_5:
             registry = api.portal.get_tool('portal_registry')
             use_view_action = registry.get(
-                'plone.types_use_view_action_in_listings', []
-            )
+                'plone.types_use_view_action_in_listings', [])
         else:
-            site_properties = api.portal.get_tool('portal_properties').site_properties
+            portal_properties = api.portal.get_tool('portal_properties')
+            site_properties = portal_properties.site_properties
             use_view_action = site_properties.getProperty(
-                'typesUseViewActionInListings', []
-            )
-        return use_view_action
+                'typesUseViewActionInListings', [])
+
+        # types that use view action need to add '/view' to its canonical URL
+        url = item.getURL()
+        if item.portal_type in use_view_action:
+            return url + '/view'
+        return url
 
     def related_items(self):
-        """Return a list of brains with related items.
-
-        :type related: list of relations
-        :return: list of catalog brains
+        """Return the items related with the current object.
+        :returns: list of catalog brains
         """
         res = ()
-
         if HAS_RELATIONFIELD and IRelatedItems.providedBy(self.context):
-            related = self.context.relatedItems
-            if not related:
+            relations = self.context.relatedItems
+            if not relations:
                 return ()
-            res = self.related2brains(related)
+            res = self.relations2brains(relations)
 
         return res
 
-    def related2brains(self, related):
+    def relations2brains(self, relations):
         """Return a list of brains based on a list of relations. Will filter
         relations if the user has no permission to access the content.
-
-        :param related: related items
-        :type related: list of relations
-        :return: list of catalog brains
+        :param relations: object relations
+        :type relations: list
+        :returns: catalog brains
+        :rtype: list
         """
         catalog = api.portal.get_tool('portal_catalog')
         brains = []
-        for r in related:
-            path = r.to_path
+        for item in relations:
+            path = item.to_path
             # the query will return an empty list if the user has no
             # permission to see the target object
             brains.extend(catalog(path=dict(query=path, depth=0)))
