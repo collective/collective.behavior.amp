@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from collective.behavior.amp.config import AMP_VALID_ELEMENTS
+from collective.behavior.amp.config import AMP_INVALID_ELEMENTS
 from collective.behavior.amp.logger import logger
 from lxml import html
 
@@ -22,7 +22,7 @@ class Html2Amp:
         :type el: lxml.html.HtmlElement
         """
         for tag in el.iterdescendants():
-            if tag.tag in AMP_VALID_ELEMENTS:
+            if tag.tag not in AMP_INVALID_ELEMENTS:
                 continue
             parent = tag.getparent()
             parent.remove(tag)
