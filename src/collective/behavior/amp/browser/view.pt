@@ -8,6 +8,45 @@
 
     <script type="application/ld+json" tal:content="view/metadata"></script>
 
+    <style amp-custom>
+      body {
+        background-color: #fff;
+        font-family: 'Lato', sans-serif;
+      }
+      amp-sidebar {
+        width: 90%;
+        padding: 15px 10px;
+        background: #fff;
+        border-right: 1px solid #ccc;
+      }
+      nav ul {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      nav ul li {
+        border-bottom: 1px solid #f1f1f1;
+        padding: 5px;
+      }
+      nav ul li a {
+        text-decoration: none;
+      }
+      body>header {
+        padding: 10px;
+      }
+      .amp-open-image, .logo {
+        vertical-align: middle;
+      }
+      article>header figure {
+        margin: 0;
+      }
+      p, h1, h2, h3,
+      article>header div,
+      .social-icons, .amp-byline {
+        padding: 0 10px 10px 10px;
+      }
+    </style>
+
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
