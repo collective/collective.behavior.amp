@@ -3,6 +3,7 @@
 from collections import OrderedDict
 from collective.behavior.amp.behaviors import IAMP
 from collective.behavior.amp.config import HAS_SOCIALLIKE
+from collective.behavior.amp.config import IS_PLONE_5
 from collective.behavior.amp.config import SOCIAL_SHARE_PROVIDERS
 from collective.behavior.amp.interfaces import IAMPSettings
 from collective.behavior.amp.utils import Html2Amp
@@ -16,6 +17,15 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import json
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('plone.app.relationfield')
+except pkg_resources.DistributionNotFound:
+    HAS_RELATIONFIELD = False
+else:
+    from plone.app.relationfield.behavior import IRelatedItems
+    HAS_RELATIONFIELD = True
 
 if HAS_SOCIALLIKE:
     from sc.social.like.interfaces import ISocialLikeSettings
@@ -165,6 +175,59 @@ class AMPView(BrowserView):
             return
         util = Html2Amp()
         return util(self.context.text.output)
+
+    def get_listing_view_action(self, item):
+        """Return the item's view action used in listings.
+        :param item: the item to be processed
+        :type item: catalog brain
+        :returns: the item's view action
+        :rtype: str
+        """
+        if IS_PLONE_5:
+            registry = api.portal.get_tool('portal_registry')
+            use_view_action = registry.get(
+                'plone.types_use_view_action_in_listings', [])
+        else:
+            portal_properties = api.portal.get_tool('portal_properties')
+            site_properties = portal_properties.site_properties
+            use_view_action = site_properties.getProperty(
+                'typesUseViewActionInListings', [])
+
+        # types that use view action need to add '/view' to its canonical URL
+        url = item.getURL()
+        if item.portal_type in use_view_action:
+            return url + '/view'
+        return url
+
+    def related_items(self):
+        """Return the items related with the current object.
+        :returns: list of catalog brains
+        """
+        res = ()
+        if HAS_RELATIONFIELD and IRelatedItems.providedBy(self.context):
+            relations = self.context.relatedItems
+            if not relations:
+                return ()
+            res = self.relations2brains(relations)
+
+        return res
+
+    def relations2brains(self, relations):
+        """Return a list of brains based on a list of relations. Will filter
+        relations if the user has no permission to access the content.
+        :param relations: object relations
+        :type relations: list
+        :returns: catalog brains
+        :rtype: list
+        """
+        catalog = api.portal.get_tool('portal_catalog')
+        brains = []
+        for item in relations:
+            path = item.to_path
+            # the query will return an empty list if the user has no
+            # permission to see the target object
+            brains.extend(catalog(path=dict(query=path, depth=0)))
+        return brains
 
 
 class AMPViewlet(ViewletBase):

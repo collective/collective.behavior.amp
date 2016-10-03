@@ -135,6 +135,18 @@
 
     <p tal:replace="structure view/text">Body text</p>
 
+    <div class="amp-related"
+        tal:define="related_items view/related_items"
+        tal:condition="related_items">
+      <span i18n:translate="label_related_items">Related content</span>
+      <ul tal:repeat="item related_items">
+        <li>
+          <a tal:attributes="href python:view.get_listing_view_action(item)"
+              tal:content="item/Title">Related item</a>
+        </li>
+      </ul>
+    </div>
+
     <amp-analytics>
       <script type="application/json" tal:content="view/amp_analytics"></script>
     </amp-analytics>

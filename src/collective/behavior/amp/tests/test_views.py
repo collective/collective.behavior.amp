@@ -135,6 +135,33 @@ class AMPViewTestCase(unittest.TestCase):
             amp.find('*//amp-analytics/script').text, u'"foo": "bar"')
 
 
+    def test_no_related_items(self):
+        amp = etree.HTML(self.view())
+        self.assertIsNone(amp.find('.//div[@class="amp-related"]'))
+
+    def test_related_items(self):
+        from z3c.relationfield import RelationValue
+        from zope.component import getUtility
+        from zope.intid.interfaces import IIntIds
+        with api.env.adopt_roles(['Manager']):
+            r1 = api.content.create(
+                container=self.portal, type='News Item', title='foo')
+            r2 = api.content.create(
+                container=self.portal, type='Image', title='bar')
+
+        intids = getUtility(IIntIds)
+        self.newsitem.relatedItems = [
+            RelationValue(intids.getId(r1)), RelationValue(intids.getId(r2))]
+
+        amp = etree.HTML(self.view())
+        relations = amp.findall('.//div[@class="amp-related"]//a')
+        self.assertEqual(len(relations), 2)
+        self.assertEqual(relations[0].text, 'foo')
+        self.assertTrue(relations[0].attrib['href'].endswith('foo'))
+        self.assertEqual(relations[1].text, 'bar')
+        self.assertTrue(relations[1].attrib['href'].endswith('bar/view'))
+
+
 class HelperViewTestCase(unittest.TestCase):
 
     layer = INTEGRATION_TESTING
