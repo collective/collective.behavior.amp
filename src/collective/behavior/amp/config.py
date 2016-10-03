@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('sc.social.like')
+except pkg_resources.DistributionNotFound:
+    HAS_SOCIALLIKE = False
+else:
+    HAS_SOCIALLIKE = True
+
 PROJECTNAME = 'collective.behavior.amp'
 
 # https://github.com/ampproject/amphtml/blob/master/spec/amp-html-format.md
@@ -21,3 +30,13 @@ AMP_INVALID_ELEMENTS = [
     'option',
     'style',  # valid just one tag style in the head
 ]
+
+# https://github.com/ampproject/amphtml/blob/master/extensions/amp-social-share/amp-social-share.md
+SOCIAL_SHARE_PROVIDERS = (
+    'email',
+    'facebook',
+    'gplus',
+    'linkedin',
+    'pinterest',
+    'twitter',
+)

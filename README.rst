@@ -57,4 +57,6 @@ Check the box next to ``collective.behavior.amp`` and click the 'Activate' butto
 Usage
 -----
 
-TBA.
+If  `sc.social.like <https://pypi.python.org/pypi/sc.social.like>`_ is installed,
+``collective.behavior.amp`` will display a list of social share buttons honoring the configured plugins.
+Note that you have to enter a valid Facebook ``app_id`` if you want to enable the Facebook button.
