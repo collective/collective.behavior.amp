@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from plone import api
+
 import pkg_resources
 
 try:
@@ -40,3 +42,5 @@ SOCIAL_SHARE_PROVIDERS = (
     'pinterest',
     'twitter',
 )
+
+IS_PLONE_5 = api.env.plone_version().startswith('5')

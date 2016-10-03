@@ -3,6 +3,7 @@
 from collections import OrderedDict
 from collective.behavior.amp.behaviors import IAMP
 from collective.behavior.amp.config import HAS_SOCIALLIKE
+from collective.behavior.amp.config import IS_PLONE_5
 from collective.behavior.amp.config import SOCIAL_SHARE_PROVIDERS
 from collective.behavior.amp.interfaces import IAMPSettings
 from collective.behavior.amp.utils import Html2Amp
@@ -174,6 +175,19 @@ class AMPView(BrowserView):
             return
         util = Html2Amp()
         return util(self.context.text.output)
+
+    def use_view_action(self):
+        if IS_PLONE_5:
+            registry = api.portal.get_tool('portal_registry')
+            use_view_action = registry.get(
+                'plone.types_use_view_action_in_listings', []
+            )
+        else:
+            site_properties = api.portal.get_tool('portal_properties').site_properties
+            use_view_action = site_properties.getProperty(
+                'typesUseViewActionInListings', []
+            )
+        return use_view_action
 
     def related_items(self):
         """Return a list of brains with related items.

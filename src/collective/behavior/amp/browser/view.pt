@@ -137,8 +137,7 @@
 
     <div class="amp-related">
       <span i18n:translate="label_related_items">Related content</span>
-      <ul tal:define="site_properties context/portal_properties/site_properties;
-                      use_view_action site_properties/typesUseViewActionInListings|python:()">
+      <ul tal:define="use_view_action view/use_view_action">
         <tal:related repeat="item view/related_items">
           <li tal:define="item_type item/portal_type;
                           item_url item/getURL|item/absolute_url;
