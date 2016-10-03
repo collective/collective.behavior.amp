@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collective.behavior.amp.config import HAS_SOCIALLIKE
 from collective.behavior.amp.interfaces import IAMPSettings
 from collective.behavior.amp.testing import INTEGRATION_TESTING
 from collective.behavior.amp.tests.utils import load_b64encoded_image
@@ -93,6 +94,31 @@ class AMPViewTestCase(unittest.TestCase):
         amp = etree.HTML(self.view())
         text = ''.join(amp.find('.//div[@class="amp-byline"]').itertext())
         self.assertIn('published', text)
+
+    @unittest.skipIf(HAS_SOCIALLIKE, 'sc.social.like must not be installed')
+    def test_no_amp_social_share(self):
+        amp = etree.HTML(self.view())
+        amp.findall('.//amp-social-share')
+        self.assertEqual(len(amp.findall('.//amp-social-share')), 0)
+
+    @unittest.skipUnless(HAS_SOCIALLIKE, 'sc.social.like must be installed')
+    def test_amp_social_share(self):
+        from sc.social.like.interfaces import ISocialLikeSettings
+        # configure Facebook app_id before rendering
+        app_id = ISocialLikeSettings.__identifier__ + '.facebook_app_id'
+        api.portal.set_registry_record(app_id, '1234567890')
+
+        amp = etree.HTML(self.view())
+        amp.findall('.//amp-social-share')
+        # Facebook and Twitter are enabled by default
+        self.assertEqual(len(amp.findall('.//amp-social-share')), 2)
+        # Facebook button is present and has data-param-app_id attribute
+        facebook = amp.find('.//amp-social-share[@type="facebook"]')
+        self.assertIsNotNone(facebook)
+        self.assertEqual(facebook.attrib['data-param-app_id'], '1234567890')
+        # Twitter button is present
+        self.assertIsNotNone(
+            amp.find('.//amp-social-share[@type="twitter"]'))
 
     def test_amp_analytics(self):
         amp = etree.HTML(self.view())

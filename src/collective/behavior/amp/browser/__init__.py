@@ -2,6 +2,8 @@
 """View and viewlet used on this package."""
 from collections import OrderedDict
 from collective.behavior.amp.behaviors import IAMP
+from collective.behavior.amp.config import HAS_SOCIALLIKE
+from collective.behavior.amp.config import SOCIAL_SHARE_PROVIDERS
 from collective.behavior.amp.interfaces import IAMPSettings
 from collective.behavior.amp.utils import Html2Amp
 from cStringIO import StringIO
@@ -15,6 +17,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import json
 
+if HAS_SOCIALLIKE:
+    from sc.social.like.interfaces import ISocialLikeSettings
+
 
 class AMPView(BrowserView):
 
@@ -22,7 +27,15 @@ class AMPView(BrowserView):
 
     index = ViewPageTemplateFile('view.pt')
 
+    def setup(self):
+        try:
+            self.sociallike = api.content.get_view(
+                name='sl_helper', context=self.context, request=self.request)
+        except api.exc.InvalidParameterError:
+            self.sociallike = None
+
     def __call__(self):
+        self.setup()
         return self.index()
 
     @property
@@ -117,6 +130,27 @@ class AMPView(BrowserView):
     def get_localized_time(self, datetime):
         """Convert time into localized time in long format."""
         return api.portal.get_localized_time(datetime, long_format=True)
+
+    @property
+    def has_sociallike(self):
+        """Check if sc.social.like is installed and enabled."""
+        if self.sociallike is None:
+            return False
+        return self.sociallike.enabled() and self.sociallike.plugins()
+
+    @property
+    def share_buttons(self):
+        """Return the list of social networks enabled."""
+        # this code is executed only if sc.social.like is installed
+        plugins = [i.id for i in self.sociallike.plugins()]
+        return [i for i in plugins if i in SOCIAL_SHARE_PROVIDERS]
+
+    @property
+    def facebook_app_id(self):
+        """Return the Facebook app_id configured."""
+        # this code is executed only if sc.social.like is installed
+        app_id = ISocialLikeSettings.__identifier__ + '.facebook_app_id'
+        return api.portal.get_registry_record(app_id)
 
     @property
     def amp_analytics(self):
