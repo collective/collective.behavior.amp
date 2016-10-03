@@ -13,7 +13,15 @@ Support for Accelerated Mobile Pages in Plone
 Life, the Universe, and Everything
 ==================================
 
-A behavior to add support for Accelerated Mobile Pages on Dexterity-based content types.
+collective.behavior.amp implements a behavior for Dexterity-based content types that creates an AMP (Accelerated Mobile Pages) version of your content.
+
+collective.behavior.amp is based on Google AMP projetc principles and recomendations, visit the project page to know more: https://www.ampproject.org
+
+How this package works?
+-----------------------
+
+collective.behavior.amp creates an alternate and very light template for your content, and adds a link in the header of your regular template to the AMP version. 
+To manually visit the AMP version just add /amp to your content URL. Most newest mobile browsers will serve this version by default. Google also will link the mobile search results to this version.
 
 Mostly Harmless
 ===============
