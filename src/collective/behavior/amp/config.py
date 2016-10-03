@@ -2,7 +2,7 @@
 PROJECTNAME = 'collective.behavior.amp'
 
 # https://github.com/ampproject/amphtml/blob/master/spec/amp-tag-addendum.md
-AMP_VALID_ATTRIBUTES = [
+AMP_VALID_ELEMENTS = [
     'html',
     'head',
     'title',

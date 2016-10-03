@@ -17,7 +17,7 @@ class Html2AmpTestCase(unittest.TestCase):
 
     def test_replace_tags(self):
         code = (
-            '<img src="/img/amp.jpg" width="1080" height="610" alt="an image"></img>'
+            '<img src="/img/amp.jpg" width="1080" height="610" alt="an image" />'
         )
         el = html.fromstring(code)
         self.util.replace_tags(el)
@@ -30,7 +30,7 @@ class Html2AmpTestCase(unittest.TestCase):
     def test_remove_invalid_tags(self):
         code = (
             '<div>'
-            '<img src="/img/amp.jpg" width="1080" height="610" alt="an image"></img>'
+            '<img src="/img/amp.jpg" width="1080" height="610" alt="an image" />'
             '</div>'
         )
         el = html.fromstring(code)
@@ -39,7 +39,7 @@ class Html2AmpTestCase(unittest.TestCase):
 
     def test_utility(self):
         code = (
-            '<img src="/img/amp.jpg" width="1080" height="610" alt="an image"></img>'
+            '<img src="/img/amp.jpg" width="1080" height="610" alt="an image" />'
             '<iframe frameborder="0" height="428" src="" width="760"></iframe>'
         )
         expected = (

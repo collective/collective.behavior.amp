@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from collective.behavior.amp.config import AMP_VALID_ATTRIBUTES
+from collective.behavior.amp.config import AMP_VALID_ELEMENTS
 from collective.behavior.amp.logger import logger
 from lxml import html
 
@@ -22,12 +22,11 @@ class Html2Amp:
         :type el: lxml.html.HtmlElement
         """
         for tag in el.iterdescendants():
-            if tag.tag in AMP_VALID_ATTRIBUTES:
+            if tag.tag in AMP_VALID_ELEMENTS:
                 continue
             parent = tag.getparent()
             parent.remove(tag)
-            msg = '<{0}> tag was removed.'
-            logger.debug(msg.format(tag.tag))
+            logger.debug('<{0}> tag was removed'.format(tag.tag))
 
     def __call__(self, code):
         el = html.fromstring(code)

@@ -51,6 +51,7 @@
     <p tal:condition="context/description"
         tal:content="context/description">Description</p>
     <amp-img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA1BMVEXy8vJkA4prAAAAC0lEQVQI12MgEQAAADAAAWV61nwAAAAASUVORK5CYII=" alt="Gray Square" height="400" width="800"></amp-img>
+
     <p tal:replace="structure view/text">Body text</p>
 
     <amp-analytics>
