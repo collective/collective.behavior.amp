@@ -157,8 +157,10 @@
       </ul>
     </div>
 
-    <amp-analytics>
-      <script type="application/json" tal:content="view/amp_analytics"></script>
+    <amp-analytics
+        tal:define="analytics view/amp_analytics"
+        tal:condition="analytics">
+      <script type="application/json" tal:content="analytics"></script>
     </amp-analytics>
   </body>
 </html>

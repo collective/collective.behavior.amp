@@ -166,19 +166,18 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertEqual(metadata['width'], 231)
         self.assertEqual(metadata['height'], 60)
 
-    def test_amp_analytics(self):
+    def test_no_amp_analytics(self):
         amp = etree.HTML(self.view())
-        self.assertIsNotNone(amp.find('.//amp-analytics'))
-        self.assertIsNotNone(amp.find('.//amp-analytics/script'))
-        self.assertEqual(
-            amp.find('*//amp-analytics/script').attrib['type'], 'application/json')
-        self.assertIsNone(amp.find('*//amp-analytics/script').text)
+        self.assertIsNone(amp.find('.//amp-analytics'))
 
+    def test_amp_analytics(self):
         amp_analytics = IAMPSettings.__identifier__ + '.amp_analytics'
         api.portal.set_registry_record(amp_analytics, u'"foo": "bar"')
         amp = etree.HTML(self.view())
-        self.assertEqual(
-            amp.find('*//amp-analytics/script').text, u'"foo": "bar"')
+        analytics = amp.find('.//amp-analytics/script')
+        self.assertIsNotNone(analytics)
+        self.assertEqual(analytics.attrib['type'], u'application/json')
+        self.assertEqual(analytics.text, u'"foo": "bar"')
 
     def test_no_related_items(self):
         amp = etree.HTML(self.view())
