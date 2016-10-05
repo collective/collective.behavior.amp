@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_controlpanel">
-  <configlet title="AMP"
+  <configlet title="Accelerated Mobile Pages"
       action_id="amp"
       appId="collective.behavior.amp"
       remove="True"

@@ -1,8 +1,8 @@
 .. image:: https://raw.githubusercontent.com/collective/collective.behavior.amp/master/docs/amp.png
     :align: left
     :alt: Accelerated Mobile Pages
-    :height: 100px
-    :width: 100px
+    :height: 128px
+    :width: 128px
 
 *********************************************
 Support for Accelerated Mobile Pages in Plone
@@ -13,15 +13,11 @@ Support for Accelerated Mobile Pages in Plone
 Life, the Universe, and Everything
 ==================================
 
-collective.behavior.amp implements a behavior for Dexterity-based content types that creates an AMP (Accelerated Mobile Pages) version of your content.
+The `Accelerated Mobile Pages Project <https://www.ampproject.org/>`_ (AMP) is an open source project and service to accelerate content on mobile devices.
 
-collective.behavior.amp is based on Google AMP projetc principles and recomendations, visit the project page to know more: https://www.ampproject.org
-
-How this package works?
------------------------
-
-collective.behavior.amp creates an alternate and very light template for your content, and adds a link in the header of your regular template to the AMP version. 
-To manually visit the AMP version just add /amp to your content URL. Most newest mobile browsers will serve this version by default. Google also will link the mobile search results to this version.
+This package implements a behavior for Dexterity-based content types that adds an AMP HTML version of your content.
+Most newest mobile browsers will serve this version by default.
+Google will also link the mobile search results to this version.
 
 Mostly Harmless
 ===============
@@ -60,11 +56,46 @@ After updating the configuration you need to run ''bin/buildout'', which will ta
 
 Go to the 'Site Setup' page in a Plone site and click on the 'Add-ons' link.
 
-Check the box next to ``collective.behavior.amp`` and click the 'Activate' button.
+Check the box next to ``Accelerated Mobile Pages Support`` and click the 'Activate' button.
 
 Usage
 -----
 
+Go to 'Site Setup' and select 'Accelerated Mobile Pages';
+set the publisher logo and the AMP `analytics code <https://developers.google.com/analytics/devguides/collection/amp-analytics/>`, if available.
+
+.. figure:: https://raw.githubusercontent.com/collective/collective.behavior.amp/master/docs/controlpanel.png
+    :align: center
+    :height: 720px
+    :width: 768px
+
+    The Accelerated Mobile Pages control panel configlet.
+
+Go to 'Site Setup' and select 'Dexterity Content Types' and enable the 'Accelerated Mobile Pages' in your content types.
+A new view named ``@@amp`` will become available in all instances of your content type.
+The view will display the logo of your site, a global navigation sidebar, and the main fields of your content type (including related items, if available);
+it will also include metadata as structured data.
+
 If  `sc.social.like <https://pypi.python.org/pypi/sc.social.like>`_ is installed,
-``collective.behavior.amp`` will display a list of social share buttons honoring the configured plugins.
+a list of social share buttons honoring the configured plugins will be displayed between the byline and the resume.
 Note that you have to enter a valid Facebook ``app_id`` if you want to enable the Facebook button.
+
+How does it work
+----------------
+
+AMP is a way to build web pages for static content that render fast.
+AMP consists of three different parts:
+
+AMP HTML
+    AMP HTML is HTML with some restrictions for reliable performance and some extensions for building rich content beyond basic HTML.
+AMP JS
+    The AMP JS library ensures the fast rendering of AMP HTML pages.
+Google AMP Cache
+    The Google AMP Cache can be used to serve cached AMP HTML pages.
+
+This package adds an alternate view to display your content as AMP HTML page,
+and adds a link to it in the header of any other view:
+
+.. code-block:: xml
+
+  <link rel="amphtml" href="${context/absolute_url}/@@amp">

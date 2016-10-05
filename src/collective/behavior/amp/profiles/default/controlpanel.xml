@@ -3,7 +3,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="collective.behavior.amp"
     purge="False">
-  <configlet title="AMP"
+  <configlet title="Accelerated Mobile Pages"
       action_id="amp"
       appId="collective.behavior.amp"
       category="Products"

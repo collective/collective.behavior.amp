@@ -6,9 +6,9 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="collective.behavior.amp"
+      title="Accelerated Mobile Pages Support"
       directory="profiles/default"
-      description="Support for Accelerated Mobile Pages on Dexterity-based content types."
+      description="A behavior for Dexterity-based content types that adds an AMP version of your content."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       i18n:attributes="title; description"
       />
