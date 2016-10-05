@@ -13,6 +13,7 @@ from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.app.textfield.interfaces import IRichTextValue
 from plone.formwidget.namedfile.converter import b64decode_file
+from plone.namedfile.file import NamedBlobImage
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -161,6 +162,27 @@ class AMPView(BrowserView):
         # this code is executed only if sc.social.like is installed
         app_id = ISocialLikeSettings.__identifier__ + '.facebook_app_id'
         return api.portal.get_registry_record(app_id)
+
+    @property
+    def lead_image(self):
+        """Return lead image information, if present. We try to guess
+        the information based on field names as it's useless to try
+        to deal with the ILeadImage interface.
+        :returns: lead image information
+        :rtype: dict or None
+        """
+        image = getattr(self.context, 'image', None)
+        if image is None:
+            return None  # no "image" field
+
+        if not isinstance(image, NamedBlobImage):
+            return None  # not a real image
+
+        url = '{0}/@@download/image/{1}'.format(
+            self.context.absolute_url(), image.filename)
+        caption = getattr(self.context, 'image_caption', None)
+        width, height = image.getImageSize()
+        return dict(url=url, caption=caption, width=width, height=height)
 
     @property
     def amp_analytics(self):
