@@ -2,7 +2,9 @@
 from collective.behavior.amp.config import HAS_SOCIALLIKE
 from collective.behavior.amp.interfaces import IAMPSettings
 from collective.behavior.amp.testing import INTEGRATION_TESTING
-from collective.behavior.amp.tests.utils import load_b64encoded_image
+from collective.behavior.amp.tests.utils import enable_amp_behavior
+from collective.behavior.amp.tests.utils import get_file
+from collective.behavior.amp.tests.utils import get_file_b64encoded
 from lxml import etree
 from plone import api
 
@@ -64,7 +66,7 @@ class AMPViewTestCase(unittest.TestCase):
     def test_metadata_logo(self):
         # publisher logo information must be available if logo is loaded
         filename = 'logo-plone-ok.png'
-        logo = load_b64encoded_image(filename)
+        logo = get_file_b64encoded(filename)
         api.portal.set_registry_record(
             IAMPSettings.__identifier__ + '.publisher_logo', logo)
 
@@ -120,6 +122,38 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertIsNotNone(
             amp.find('.//amp-social-share[@type="twitter"]'))
 
+    def test_no_lead_image(self):
+        enable_amp_behavior('Document')
+        with api.env.adopt_roles(['Manager']):
+            page = api.content.create(
+                container=self.portal, type='Document', title='foo')
+        view = api.content.get_view(
+            name='amp', context=page, request=self.request)
+        amp = etree.HTML(view())
+        self.assertIsNone(amp.find('.//figure'))
+
+    def test_lead_image(self):
+        from plone.namedfile.file import NamedBlobImage
+        amp = etree.HTML(self.view())
+        self.assertIsNone(amp.find('.//figure'))  # no image yet
+        # set lead image
+        filename = u'logo-plone-ok.png'
+        self.newsitem.image = NamedBlobImage(
+            data=get_file(filename), filename=filename)
+        amp = etree.HTML(self.view())
+        lead_image = amp.find('.//figure/amp-img')
+        self.assertIsNotNone(lead_image)
+        self.assertTrue(lead_image.attrib['src'].endswith(filename))
+        self.assertEqual(lead_image.attrib['layout'], 'responsive')
+        self.assertEqual(lead_image.attrib['width'], '231')
+        self.assertEqual(lead_image.attrib['height'], '60')
+        self.assertIsNone(amp.find('.//figure/figcaption'))  # no caption yet
+        # set image caption
+        self.newsitem.image_caption = u'Mais amor, por favor!'
+        amp = etree.HTML(self.view())
+        self.assertEqual(
+            amp.find('.//figure/figcaption').text, 'Mais amor, por favor!')
+
     def test_amp_analytics(self):
         amp = etree.HTML(self.view())
         self.assertIsNotNone(amp.find('.//amp-analytics'))
@@ -133,7 +167,6 @@ class AMPViewTestCase(unittest.TestCase):
         amp = etree.HTML(self.view())
         self.assertEqual(
             amp.find('*//amp-analytics/script').text, u'"foo": "bar"')
-
 
     def test_no_related_items(self):
         amp = etree.HTML(self.view())
@@ -173,7 +206,7 @@ class HelperViewTestCase(unittest.TestCase):
     def test_render(self):
         # define a publisher logo
         filename = 'logo-plone-ok.png'
-        logo = load_b64encoded_image(filename)
+        logo = get_file_b64encoded(filename)
         api.portal.set_registry_record(
             IAMPSettings.__identifier__ + '.publisher_logo', logo)
 
