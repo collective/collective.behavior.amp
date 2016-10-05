@@ -78,7 +78,8 @@
           height="32"
           alt="Navigation"
           on='tap:sidebar.open'
-          role="button"></amp-img>
+          role="button"
+          tabindex="0"></amp-img>
     </header>
 
     <h1 tal:content="context/title">Title</h1>
