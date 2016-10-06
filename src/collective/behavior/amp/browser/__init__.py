@@ -11,10 +11,10 @@ from collective.behavior.amp.utils import Html2Amp
 from cStringIO import StringIO
 from PIL import Image
 from plone import api
-from plone.memoize import view
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.app.textfield.interfaces import IRichTextValue
 from plone.formwidget.namedfile.converter import b64decode_file
+from plone.memoize import view
 from plone.namedfile.file import NamedBlobImage
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -213,7 +213,7 @@ class AMPView(BrowserView):
         if not IRichTextValue.providedBy(self.context.text):
             return
         util = Html2Amp()
-        return util(self.context.text.output)
+        return util(self.context.text.raw)
 
     def get_listing_view_action(self, item):
         """Return the item's view action used in listings.
