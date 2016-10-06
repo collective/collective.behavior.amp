@@ -5,13 +5,31 @@
     <title tal:content="context/title">Title</title>
     <link rel="canonical" tal:attributes="href context/absolute_url" />
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-
     <script type="application/ld+json" tal:content="view/metadata"></script>
-
     <style amp-custom>
       body {
         background-color: #fff;
         font-family: 'Lato', sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      .logo {
+        position: absolut;
+        top: 0;
+        left: 38px;
+      }
+      .open-sidebar {
+        position: absolute;
+        top: 18px;
+        left: 6px;
+      }
+      figure {
+        margin: 0;
+      }
+      figcaption {
+        padding: 0 5px;
+        font-size: 80%;
       }
       amp-sidebar {
         width: 90%;
@@ -27,6 +45,7 @@
       nav ul li {
         border-bottom: 1px solid #f1f1f1;
         padding: 5px;
+        list-style-type: none;
       }
       nav ul li a {
         text-decoration: none;
@@ -34,19 +53,29 @@
       body>header {
         padding: 10px;
       }
-      .amp-open-image, .logo {
-        vertical-align: middle;
+      .amp-byline {
+        font-size: 80%;
       }
-      article>header figure {
-        margin: 0;
+      h1 {
+      font-size: 180%;
       }
       p, h1, h2, h3,
       article>header div,
-      .social-icons, .amp-byline {
-        padding: 0 10px 10px 10px;
+      .social-icons, .amp-byline, .amp-related {
+        padding: 0 16px 10px 16px;
+      }
+      article amp-img {
+        margin-bottom: 10px;
+      }
+      .amp-related li {
+        display: block;
+        list-style-type: none;
+        font-weight: bold;
+      }
+      .amp-related ul {
+        padding: 0;
       }
     </style>
-
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
@@ -79,6 +108,7 @@
           alt="Navigation"
           on='tap:sidebar.open'
           role="button"
+          class="open-sidebar"
           tabindex="0"></amp-img>
 
       <a tal:attributes="href view/portal_url">
@@ -91,83 +121,88 @@
                             width logo/width;
                             height logo/height"></amp-img>
       </a>
-
     </header>
 
-    <h1 tal:content="context/title">Title</h1>
+    <article>
+      <header>
+        <figure tal:define="image view/lead_image" tal:condition="image">
+          <amp-img layout="responsive"
+              tal:attributes="src image/url;
+                              alt image/caption;
+                              width image/width;
+                              height image/height"></amp-img>
+          <figcaption tal:condition="image/caption"
+              tal:content="image/caption"></figcaption>
+        </figure>
 
-    <div class="amp-byline" tal:condition="view/show_byline">
-      <span tal:condition="view/author">
-        <tal:i18n i18n:translate="label_by_author">
-            by
-          <span tal:content="view/author"
-              i18n:name="author">Roland Barthes</span>
-        </tal:i18n>
-          —
-      </span>
+        <h1 tal:content="context/title">Title</h1>
 
-      <tal:dates define="published view/published;
-                         modified context/modified">
-        <span tal:condition="published">
-          <span i18n:translate="box_published">
-            published
+        <div class="amp-byline" tal:condition="view/show_byline">
+          <span tal:condition="view/author">
+            <tal:i18n i18n:translate="label_by_author">
+                by
+              <span tal:content="view/author"
+                  i18n:name="author">Roland Barthes</span>
+            </tal:i18n>
+              —
           </span>
-          <span tal:content="python:view.get_localized_time(published)">
-            August 16, 2001 at 23:35:59
-          </span><tal:sep condition="modified">,</tal:sep>
-        </span>
 
-        <span tal:condition="modified">
-          <span i18n:translate="box_last_modified">
-            last modified
-          </span>
-          <span tal:content="python:view.get_localized_time(modified)">
-            August 16, 2001 at 23:35:59
-          </span>
-        </span>
-      </tal:dates>
-    </div>
+          <tal:dates define="published view/published;
+                             modified context/modified">
+            <span tal:condition="published">
+              <span i18n:translate="box_published">
+                published
+              </span>
+              <span tal:content="python:view.get_localized_time(published)">
+                August 16, 2001 at 23:35:59
+              </span><tal:sep condition="modified">,</tal:sep>
+            </span>
 
-    <div tal:condition="view/has_sociallike">
-      <tal:buttons repeat="button view/share_buttons">
-        <amp-social-share tal:condition="python:button == 'facebook'"
-            tal:attributes="type button;
-                            data-param-app_id view/facebook_app_id"
-            width="32"
-            height="32"></amp-social-share>
-        <amp-social-share tal:condition="python:button != 'facebook'"
-            tal:attributes="type button"
-            width="32"
-            height="32"></amp-social-share>
-      </tal:buttons>
-    </div>
+            <span tal:condition="modified">
+              <span i18n:translate="box_last_modified">
+                last modified
+              </span>
+              <span tal:content="python:view.get_localized_time(modified)">
+                August 16, 2001 at 23:35:59
+              </span>
+            </span>
+          </tal:dates>
+        </div>
+      </header>
 
-    <p tal:condition="context/description"
-        tal:content="context/description">Description</p>
+      <div tal:condition="view/has_sociallike">
+        <tal:buttons repeat="button view/share_buttons">
+          <amp-social-share tal:condition="python:button == 'facebook'"
+              tal:attributes="type button;
+                              data-param-app_id view/facebook_app_id"
+              width="32"
+              height="32"></amp-social-share>
+          <amp-social-share tal:condition="python:button != 'facebook'"
+              tal:attributes="type button"
+              width="32"
+              height="32"></amp-social-share>
+        </tal:buttons>
+      </div>
 
-    <figure tal:define="image view/lead_image" tal:condition="image">
-      <amp-img layout="responsive"
-          tal:attributes="src image/url;
-                          alt image/caption;
-                          width image/width;
-                          height image/height"></amp-img>
-      <figcaption tal:condition="image/caption"
-          tal:content="image/caption"></figcaption>
-    </figure>
+      <p tal:condition="context/description"
+          tal:content="context/description">Description</p>
 
-    <p tal:replace="structure view/text">Body text</p>
+      <p tal:replace="structure view/text">Body text</p>
+    </article>
 
-    <div class="amp-related"
-        tal:define="related_items view/related_items"
-        tal:condition="related_items">
-      <span i18n:translate="label_related_items">Related content</span>
-      <ul tal:repeat="item related_items">
-        <li>
-          <a tal:attributes="href python:view.get_listing_view_action(item)"
-              tal:content="item/Title">Related item</a>
-        </li>
-      </ul>
-    </div>
+    <aside>
+      <div class="amp-related"
+          tal:define="related_items view/related_items"
+          tal:condition="related_items">
+        <h4 i18n:translate="label_related_items">Related content</h4>
+        <ul tal:repeat="item related_items">
+          <li>
+            <a tal:attributes="href python:view.get_listing_view_action(item)"
+                tal:content="item/Title">Related item</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
 
     <amp-analytics
         tal:define="analytics view/amp_analytics"
