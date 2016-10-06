@@ -31,9 +31,7 @@ Mostly Harmless
 .. image:: https://img.shields.io/coveralls/collective/collective.behavior.amp/master.svg
     :target: https://coveralls.io/r/collective/collective.behavior.amp
 
-Got an idea? Found a bug? Let us know by `opening a support ticket`_.
-
-.. _`opening a support ticket`: https://github.com/collective/collective.behavior.amp/issues
+Got an idea? Found a bug? Let us know by `opening a support ticket <https://github.com/collective/collective.behavior.amp/issues>`_.
 
 Don't Panic
 ===========
@@ -62,7 +60,7 @@ Usage
 -----
 
 Go to 'Site Setup' and select 'Accelerated Mobile Pages';
-set the publisher logo and the AMP `analytics code <https://developers.google.com/analytics/devguides/collection/amp-analytics/>`, if available.
+set the publisher logo and the `AMP analytics code <https://developers.google.com/analytics/devguides/collection/amp-analytics/>`_, if available.
 
 .. figure:: https://raw.githubusercontent.com/collective/collective.behavior.amp/master/docs/controlpanel.png
     :align: center
@@ -73,7 +71,7 @@ set the publisher logo and the AMP `analytics code <https://developers.google.co
 
 Go to 'Site Setup' and select 'Dexterity Content Types' and enable the 'Accelerated Mobile Pages' in your content types.
 A new view named ``@@amp`` will become available in all instances of your content type.
-The view will display the logo of your site, a global navigation sidebar, and the main fields of your content type (including related items, if available);
+The view will display the logo of your site, a global navigation sidebar, and the main fields of your content type (including title, byline, resume, body text, and related items, if available);
 it will also include metadata as structured data.
 
 If  `sc.social.like <https://pypi.python.org/pypi/sc.social.like>`_ is installed,
@@ -99,3 +97,5 @@ and adds a link to it in the header of any other view:
 .. code-block:: xml
 
   <link rel="amphtml" href="${context/absolute_url}/@@amp">
+
+The body text is processed to remove invalid elements or to replace them by the corresponding AMP components.
