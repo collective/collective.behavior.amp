@@ -184,7 +184,10 @@ class AMPView(BrowserView):
             caption = self.context.media_caption()
         except AttributeError:  # collective.nitf 1.0
             caption = self.context.imageCaption()
-        width, height = image.image.getImageSize()
+        try:  # Dexterity
+            width, height = image.image.getImageSize()
+        except AttributeError:  # Archetypes
+            width, height = image.getSize()
         return dict(url=url, caption=caption, width=width, height=height)
 
     @property
