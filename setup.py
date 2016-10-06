@@ -16,7 +16,7 @@ setup(
     description=description,
     long_description=long_description,
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Framework :: Plone',
         'Framework :: Plone :: 4.3',
@@ -30,7 +30,7 @@ setup(
         'Topic :: Office/Business :: News/Diary',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    keywords='plone amp dexterity behavior',
+    keywords='plone amp mobile dexterity behavior',
     author='Simples Consultoria',
     author_email='produtos@simplesconsultoria.com.br',
     url='https://github.com/collective/collective.behavior.amp',
