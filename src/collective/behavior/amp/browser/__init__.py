@@ -176,6 +176,9 @@ class AMPView(BrowserView):
         See: https://github.com/collective/collective.behavior.amp/issues/19
         """
         image = self.context.image()
+        if image is None:
+            return  # no lead image
+
         url = '{0}/{1}'.format(self.context.absolute_url(), image.id)
         try:  # collective.nitf 2.0
             caption = self.context.media_caption()
