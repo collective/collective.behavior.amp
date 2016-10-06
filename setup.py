@@ -2,7 +2,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '1.0b2.dev0'
+version = '1.0a1'
 description = 'Support for Accelerated Mobile Pages (AMP) on Dexterity-based content types.'
 long_description = (
     open('README.rst').read() + '\n' +
