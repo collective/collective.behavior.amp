@@ -22,14 +22,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import json
 import pkg_resources
 
-try:
-    pkg_resources.get_distribution('plone.app.relationfield')
-except pkg_resources.DistributionNotFound:
-    HAS_RELATIONFIELD = False
-else:
-    from plone.app.relationfield.behavior import IRelatedItems
-    HAS_RELATIONFIELD = True
-
 if HAS_SOCIALLIKE:
     from sc.social.like.interfaces import ISocialLikeSettings
 
@@ -180,6 +172,20 @@ class AMPView(BrowserView):
         return api.portal.get_registry_record(app_id)
 
     @property
+    def nitf_lead_image(self):
+        """Return lead image information for collective.nitf content.
+        See: https://github.com/collective/collective.behavior.amp/issues/19
+        """
+        image = self.context.image()
+        url = '{0}/{1}'.format(self.context.absolute_url(), image.id)
+        try:  # collective.nitf 2.0
+            caption = self.context.media_caption()
+        except AttributeError:  # collective.nitf 1.0
+            caption = self.context.imageCaption()
+        width, height = image.image.getImageSize()
+        return dict(url=url, caption=caption, width=width, height=height)
+
+    @property
     @view.memoize
     def lead_image(self):
         """Return lead image information, if present. We try to guess
@@ -188,6 +194,10 @@ class AMPView(BrowserView):
         :returns: lead image information
         :rtype: dict or None
         """
+        # XXX: temporary workaround for collective.nitf
+        if self.context.portal_type == 'collective.nitf.content':
+            return self.nitf_lead_image
+
         image = getattr(self.context, 'image', None)
         if image is None:
             return None  # no "image" field
@@ -242,14 +252,11 @@ class AMPView(BrowserView):
         """Return the items related with the current object.
         :returns: list of catalog brains
         """
-        res = ()
-        if HAS_RELATIONFIELD and IRelatedItems.providedBy(self.context):
+        try:
             relations = self.context.relatedItems
-            if not relations:
-                return ()
-            res = self.relations2brains(relations)
-
-        return res
+        except AttributeError:
+            return ()
+        return self.relations2brains(relations) if relations else ()
 
     def relations2brains(self, relations):
         """Return a list of brains based on a list of relations. Will filter
@@ -259,6 +266,7 @@ class AMPView(BrowserView):
         :returns: catalog brains
         :rtype: list
         """
+        assert isinstance(relations, list)
         catalog = api.portal.get_tool('portal_catalog')
         brains = []
         for item in relations:
