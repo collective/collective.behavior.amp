@@ -131,6 +131,9 @@ class AMPViewTestCase(unittest.TestCase):
             name='amp', context=page, request=self.request)
         amp = etree.HTML(view())
         self.assertIsNone(amp.find('.//figure'))
+        # no lead image information in metadata
+        metadata = self._get_metadata_as_json(amp)
+        self.assertNotIn('image', metadata)
 
     def test_lead_image(self):
         from plone.namedfile.file import NamedBlobImage
@@ -153,6 +156,15 @@ class AMPViewTestCase(unittest.TestCase):
         amp = etree.HTML(self.view())
         self.assertEqual(
             amp.find('.//figure/figcaption').text, 'Mais amor, por favor!')
+        # lead image information in metadata
+        metadata = self._get_metadata_as_json(amp)
+        self.assertIn('image', metadata)
+        metadata = metadata['image']  # shortcut
+        self.assertEqual(metadata['@type'], u'ImageObject')
+        url = u'lorem-ipsum/@@download/image/{0}'.format(filename)
+        self.assertTrue(metadata['url'].endswith(url))
+        self.assertEqual(metadata['width'], 231)
+        self.assertEqual(metadata['height'], 60)
 
     def test_amp_analytics(self):
         amp = etree.HTML(self.view())

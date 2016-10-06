@@ -88,12 +88,12 @@ class AMPView(BrowserView):
         metadata['mainEntityOfPage'] = self.context.absolute_url()  # canonical URL
         metadata['headline'] = self.context.Title()
 
-        # TODO: lead image
-        # metadata['image'] = OrderedDict()
-        # metadata['image']['@type'] = 'ImageObject'
-        # metadata['image']['url'] = 'https://google.com/thumbnail1.jpg'
-        # metadata['image']['height'] = 800
-        # metadata['image']['width'] = 800
+        if self.lead_image:
+            metadata['image'] = OrderedDict()
+            metadata['image']['@type'] = 'ImageObject'
+            metadata['image']['url'] = self.lead_image['url']
+            metadata['image']['height'] = self.lead_image['height']
+            metadata['image']['width'] = self.lead_image['width']
 
         metadata['publisher'] = OrderedDict()
         metadata['publisher']['@type'] = 'Organization'
