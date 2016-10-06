@@ -70,7 +70,9 @@ setup(
             'plone.registry',
             'plone.testing',
             'robotsuite',
+            'z3c.relationfield',
             'zope.component',
+            'zope.intid',
         ],
     },
     entry_points="""
