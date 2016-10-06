@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-09-13 17:40+0000\n"
-"PO-Revision-Date: 2016-09-13 14:41-0300\n"
+"POT-Creation-Date: 2016-10-06 20:09+0000\n"
+"PO-Revision-Date: 2016-10-06 17:14-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,25 +16,55 @@ msgstr ""
 "Language: es\n"
 "X-Generator: Poedit 1.8.4\n"
 
-#: collective/behavior/amp/behaviors.zcml:15
-msgid "AMP"
-msgstr "AMP"
+#: collective/behavior/amp/profiles.zcml:14
+msgid "A behavior for Dexterity-based content types that adds an AMP version of your content."
+msgstr "Un behavior para tipos de contenido basados en Dexterity que adiciona una versión AMP de su contenido."
+
+#: collective/behavior/amp/interfaces.py:34
+msgid "AMP Analytics"
+msgstr "AMP Analytics"
 
 #: collective/behavior/amp/behaviors.zcml:15
-msgid "Enables support for Accelerated Mobile Pages."
-msgstr "Habilita el soporte para Accelerated Mobile Pages."
+#: collective/behavior/amp/browser/controlpanel.py:12
+#: collective/behavior/amp/profiles/default/controlpanel.xml
+msgid "Accelerated Mobile Pages"
+msgstr "Accelerated Mobile Pages"
 
 #: collective/behavior/amp/profiles.zcml:14
-msgid "Support for Accelerated Mobile Pages on Dexterity-based content types."
-msgstr "Soporte para Accelerated Mobile Pages en tipos de contenido basados en Dexterity."
+msgid "Accelerated Mobile Pages Support"
+msgstr "Soporte para Accelerated Mobile Pages"
+
+#: collective/behavior/amp/behaviors.zcml:15
+msgid "Adds an AMP HTML version of your content."
+msgstr "Adiciona una version AMP HTML de su contenido."
+
+#: collective/behavior/amp/validators.py:39
+msgid "Image should be no wider than 600px, and no taller than 60px."
+msgstr "La imagen no debe ser más ancha que 600px, ni más alta que 60px."
+
+#: collective/behavior/amp/validators.py:36
+msgid "Image should have a wide aspect ratio."
+msgstr "La imagen debe ser en formato paisaje."
+
+#: collective/behavior/amp/interfaces.py:23
+msgid "Publisher Logo"
+msgstr "Logo del editor"
+
+#: collective/behavior/amp/browser/controlpanel.py:13
+msgid "Settings for AMP integration."
+msgstr "Configuración de la integración con AMP."
+
+#: collective/behavior/amp/interfaces.py:24
+msgid "The logo of the publisher. Should have a wide aspect ratio, and should be no wider than 600px, and no taller than 60px."
+msgstr "El logo del editor. Debe ser en formato paisaje, y no debe ser más ancha que 600px, ni más alta que 60px."
+
+#: collective/behavior/amp/interfaces.py:35
+msgid "The value (in JSON-LD format) of the \"amp-analytics\" element that will be used to measure activity on AMP documents."
+msgstr "El valor (en formato JSON-LD) del elemento \"amp-analytics\" que será usado para medir la actividad en los documentos AMP."
 
 #: collective/behavior/amp/profiles.zcml:23
 msgid "Uninstalls collective.behavior.amp."
 msgstr "Desinstala collective.behavior.amp."
-
-#: collective/behavior/amp/profiles.zcml:14
-msgid "collective.behavior.amp"
-msgstr "collective.behavior.amp"
 
 #: collective/behavior/amp/profiles.zcml:23
 msgid "collective.behavior.amp: uninstall"
