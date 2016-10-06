@@ -26,6 +26,14 @@ class AMPViewTestCase(unittest.TestCase):
         self.view = api.content.get_view(
             name='amp', context=self.newsitem, request=self.request)
 
+    def test_caching_headers(self):
+        from App.Common import rfc1123_date
+        self.view()
+        headers = self.request.RESPONSE.headers
+        self.assertEqual(headers['cache-control'], 'public')
+        self.assertEqual(
+            headers['last-modified'], rfc1123_date(self.newsitem.modified()))
+
     def _get_metadata_as_json(self, html):
         # the text inside the script tag must be a valid JSON
         import json

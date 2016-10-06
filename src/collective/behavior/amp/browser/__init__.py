@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """View and viewlet used on this package."""
+from App.Common import rfc1123_date
 from collections import OrderedDict
 from collective.behavior.amp.behaviors import IAMP
 from collective.behavior.amp.config import HAS_SOCIALLIKE
@@ -48,6 +49,10 @@ class AMPView(BrowserView):
 
     def __call__(self):
         self.setup()
+        # set caching headers
+        last_modified = rfc1123_date(self.context.modified())
+        self.request.RESPONSE.setHeader('Cache-Control', 'public')
+        self.request.RESPONSE.setHeader('Last-Modified', last_modified)
         return self.index()
 
     @property
