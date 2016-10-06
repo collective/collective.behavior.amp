@@ -20,7 +20,6 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import json
-import pkg_resources
 
 if HAS_SOCIALLIKE:
     from sc.social.like.interfaces import ISocialLikeSettings
