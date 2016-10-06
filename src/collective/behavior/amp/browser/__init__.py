@@ -137,8 +137,11 @@ class AMPView(BrowserView):
 
     @property
     def author(self):
-        # TODO: generalize
-        return self.context.Creator()
+        """Return author's name."""
+        try:
+            return self.context.byline
+        except AttributeError:
+            return self.context.Creator()
 
     @property
     def published(self):

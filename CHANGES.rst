@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Use ``byline`` field (if present) to get the name of the content's author.
+  [hvelarde]
+
 - Fix exception on ``AMPView`` when content has an Archetypes based lead image.
   [hvelarde]
 
