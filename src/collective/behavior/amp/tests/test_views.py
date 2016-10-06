@@ -63,13 +63,15 @@ class AMPViewTestCase(unittest.TestCase):
 
         self.assertEqual(metadata['description'], self.newsitem.Description())
 
-    def test_metadata_logo(self):
-        # publisher logo information must be available if logo is loaded
-        filename = 'logo-plone-ok.png'
+    def _set_publisher_logo(self, filename):
         logo = get_file_b64encoded(filename)
         api.portal.set_registry_record(
             IAMPSettings.__identifier__ + '.publisher_logo', logo)
 
+    def test_metadata_logo(self):
+        # publisher logo information must be available if logo is loaded
+        filename = 'logo-plone-ok.png'
+        self._set_publisher_logo(filename)
         amp = etree.HTML(self.view())
         metadata = self._get_metadata_as_json(amp)
         self.assertIn('logo', metadata['publisher'])
@@ -80,6 +82,18 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertEqual(metadata['url'], url)
         self.assertEqual(metadata['width'], 231)
         self.assertEqual(metadata['height'], 60)
+
+    def test_logo(self):
+        filename = 'logo-plone-ok.png'
+        self._set_publisher_logo(filename)
+        amp = etree.HTML(self.view())
+        logo = amp.find('.//amp-img[@class="logo"]')
+        self.assertIsNotNone(logo)
+        url = u'http://nohost/plone/@@amp-publisher-logo/{0}'.format(filename)
+        self.assertEqual(logo.attrib['src'], url)
+        self.assertEqual(logo.attrib['alt'], 'Plone site')
+        self.assertEqual(logo.attrib['width'], '231')
+        self.assertEqual(logo.attrib['height'], '60')
 
     def test_byline(self):
         # byline must contain the name of the author

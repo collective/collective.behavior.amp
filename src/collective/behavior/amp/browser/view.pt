@@ -80,6 +80,18 @@
           on='tap:sidebar.open'
           role="button"
           tabindex="0"></amp-img>
+
+      <a tal:attributes="href view/portal_url">
+        <amp-img
+            class="logo"
+            tal:define="logo view/publisher_logo"
+            tal:condition="logo"
+            tal:attributes="src logo/url;
+                            alt view/publisher_name;
+                            width logo/width;
+                            height logo/height"></amp-img>
+      </a>
+
     </header>
 
     <h1 tal:content="context/title">Title</h1>

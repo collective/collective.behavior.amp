@@ -51,6 +51,15 @@ class AMPView(BrowserView):
         return self.index()
 
     @property
+    def portal_url(self):
+        return api.portal.get().absolute_url()
+
+    @property
+    @view.memoize
+    def publisher_name(self):
+        return api.portal.get().Title()
+
+    @property
     @view.memoize
     def publisher_logo(self):
         """Return publisher logo information as a dictionary."""
@@ -99,7 +108,7 @@ class AMPView(BrowserView):
 
         metadata['publisher'] = OrderedDict()
         metadata['publisher']['@type'] = 'Organization'
-        metadata['publisher']['name'] = api.portal.get().Title()
+        metadata['publisher']['name'] = self.publisher_name
 
         if self.publisher_logo is not None:
             metadata['publisher']['logo'] = OrderedDict()
