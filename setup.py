@@ -49,6 +49,7 @@ setup(
         'plone.behavior',
         'plone.dexterity',
         'plone.formwidget.namedfile',
+        'plone.memoize',
         'plone.namedfile',
         'plone.supermodel',
         'Products.CMFCore',

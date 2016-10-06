@@ -135,14 +135,16 @@ class AMPViewTestCase(unittest.TestCase):
         metadata = self._get_metadata_as_json(amp)
         self.assertNotIn('image', metadata)
 
+    def test_lead_image_not_set(self):
+        amp = etree.HTML(self.view())
+        self.assertIsNone(amp.find('.//figure'))
+
     def test_lead_image(self):
         from plone.namedfile.file import NamedBlobImage
-        amp = etree.HTML(self.view())
-        self.assertIsNone(amp.find('.//figure'))  # no image yet
-        # set lead image
         filename = u'logo-plone-ok.png'
         self.newsitem.image = NamedBlobImage(
             data=get_file(filename), filename=filename)
+        self.newsitem.image_caption = u'Mais amor, por favor!'
         amp = etree.HTML(self.view())
         lead_image = amp.find('.//figure/amp-img')
         self.assertIsNotNone(lead_image)
@@ -150,12 +152,9 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertEqual(lead_image.attrib['layout'], 'responsive')
         self.assertEqual(lead_image.attrib['width'], '231')
         self.assertEqual(lead_image.attrib['height'], '60')
-        self.assertIsNone(amp.find('.//figure/figcaption'))  # no caption yet
-        # set image caption
-        self.newsitem.image_caption = u'Mais amor, por favor!'
-        amp = etree.HTML(self.view())
         self.assertEqual(
             amp.find('.//figure/figcaption').text, 'Mais amor, por favor!')
+
         # lead image information in metadata
         metadata = self._get_metadata_as_json(amp)
         self.assertIn('image', metadata)

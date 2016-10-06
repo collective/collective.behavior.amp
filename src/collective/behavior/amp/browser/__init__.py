@@ -10,6 +10,7 @@ from collective.behavior.amp.utils import Html2Amp
 from cStringIO import StringIO
 from PIL import Image
 from plone import api
+from plone.memoize import view
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.app.textfield.interfaces import IRichTextValue
 from plone.formwidget.namedfile.converter import b64decode_file
@@ -50,6 +51,7 @@ class AMPView(BrowserView):
         return self.index()
 
     @property
+    @view.memoize
     def publisher_logo(self):
         """Return publisher logo information as a dictionary."""
         publisher_logo = api.portal.get_registry_record(
@@ -164,6 +166,7 @@ class AMPView(BrowserView):
         return api.portal.get_registry_record(app_id)
 
     @property
+    @view.memoize
     def lead_image(self):
         """Return lead image information, if present. We try to guess
         the information based on field names as it's useless to try
