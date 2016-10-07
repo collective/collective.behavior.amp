@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Explicitly disable any Diazo theme on the AMP HTML view.
+  [hvelarde]
+
 - Use ``byline`` field (if present) to get the name of the content's author.
   [hvelarde]
 

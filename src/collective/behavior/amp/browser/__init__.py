@@ -44,6 +44,8 @@ class AMPView(BrowserView):
         last_modified = rfc1123_date(self.context.modified())
         self.request.RESPONSE.setHeader('Cache-Control', 'public')
         self.request.RESPONSE.setHeader('Last-Modified', last_modified)
+        # disable Diazo as it could insert invalid attributes in header tags
+        self.request.RESPONSE.setHeader('X-Theme-Disabled', 'True')
         return self.index()
 
     @property
