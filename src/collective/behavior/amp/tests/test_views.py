@@ -7,6 +7,7 @@ from collective.behavior.amp.tests.utils import get_file
 from collective.behavior.amp.tests.utils import get_file_b64encoded
 from lxml import etree
 from plone import api
+from plone.app.textfield.value import RichTextValue
 
 import unittest
 
@@ -225,6 +226,28 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertTrue(relations[0].attrib['href'].endswith('foo'))
         self.assertEqual(relations[1].text, 'bar')
         self.assertTrue(relations[1].attrib['href'].endswith('bar/view'))
+
+    def test_no_richtext(self):
+        amp = etree.HTML(self.view())
+        amp_text = amp.find('.//div[@class="amp-text"]')
+        self.assertIsNone(amp_text)
+
+    def test_richtext_not_unicode(self):
+        text = RichTextValue(
+            '<p>Descriçäo</p>', 'text/html', 'text/html')
+        self.assertEqual(text.raw, '<p>Descri\xc3\xa7\xc3\xa4o</p>')
+        self.newsitem.text = text
+        amp = etree.HTML(self.view())
+        amp_text = amp.find('.//div[@class="amp-text"]')
+        self.assertEqual(amp_text.text, u'Descriçäo')
+
+    def test_richtext_unicode(self):
+        text = RichTextValue(u'<p>Descriçäo</p>', 'text/html', 'text/html')
+        self.assertEqual(text.raw, u'<p>Descri\xe7\xe4o</p>')
+        self.newsitem.text = text
+        amp = etree.HTML(self.view())
+        amp_text = amp.find('.//div[@class="amp-text"]')
+        self.assertEqual(amp_text.text, u'Descriçäo')
 
 
 class HelperViewTestCase(unittest.TestCase):

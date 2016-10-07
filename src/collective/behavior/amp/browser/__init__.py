@@ -233,7 +233,7 @@ class AMPView(BrowserView):
         if not IRichTextValue.providedBy(self.context.text):
             return
         util = Html2Amp()
-        return util(self.context.text.raw)
+        return util(self.context.text.raw_encoded)
 
     def get_listing_view_action(self, item):
         """Return the item's view action used in listings.

@@ -59,7 +59,7 @@ class Html2Amp:
             logger.debug('<{0}> tag was removed'.format(tag.tag))
 
     def __call__(self, code):
-        el = html.fromstring(code)
+        el = html.fromstring(code.decode('utf-8'))
 
         # by default our RichText generates a list of <p> tags without parent
         # in this case lxml automatically add a <span> around these tags
