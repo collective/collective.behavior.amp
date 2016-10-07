@@ -3,6 +3,7 @@ from collective.behavior.amp.config import AMP_INVALID_ELEMENTS
 from collective.behavior.amp.logger import logger
 from lxml import html
 from plone.app.uuid.utils import uuidToObject
+from Products.CMFPlone.utils import safe_unicode
 
 
 class Html2Amp:
@@ -13,7 +14,7 @@ class Html2Amp:
         """Remove attribute from tag."""
         try:
             del tag.attrib[attribute]
-        except AttributeError:
+        except KeyError:
             pass
 
     def transform_img_tags(self, el):
@@ -30,10 +31,14 @@ class Html2Amp:
             obj = uuidToObject(uuid)
             if obj is None:
                 continue
+
             tag.attrib['src'] = obj.absolute_url()
             if obj.Description():
-                tag.attrib['alt'] = obj.Description()
-            width, height = obj.image.getImageSize()
+                tag.attrib['alt'] = safe_unicode(obj.Description())
+            try:  # Dexterity
+                width, height = obj.image.getImageSize()
+            except AttributeError:  # Archetypes
+                width, height = obj.getSize()
             tag.attrib['width'] = unicode(width)
             tag.attrib['height'] = unicode(height)
             tag.attrib['layout'] = 'responsive'

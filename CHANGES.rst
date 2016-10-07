@@ -9,7 +9,7 @@ There's a frood who really knows where his towel is.
 - Use ``byline`` field (if present) to get the name of the content's author.
   [hvelarde]
 
-- Fix exception on ``AMPView`` when content has an Archetypes based lead image.
+- Fix various exceptions raised when content has Archetypes based lead images.
   [hvelarde]
 
 
