@@ -58,6 +58,26 @@ class Html2Amp:
             parent.remove(tag)
             logger.debug('<{0}> tag was removed'.format(tag.tag))
 
+    def remove_invalid_attributes(self, el):
+        """Remove AMP HTML invalid attributes.
+        :param el: [required] LXML element to be sanitized.
+        :type el: lxml.html.HtmlElement
+        """
+        for tag in el.iterdescendants():
+            keys = tag.attrib.keys()
+            for key in keys:
+                remove = False
+                if key != 'on' and key.startswith('on'):
+                    remove = True
+                elif key == 'style':
+                    remove = True
+                elif key == 'xmlns' or key.startswith('xml:'):
+                    remove = True
+                if remove:
+                    del tag.attrib[key]
+                    logger.debug(
+                        '"{0}" attribute was removed from tag <{1}>'.format(keys, tag.tag))
+
     def __call__(self, code):
         el = html.fromstring(code)
 
@@ -69,4 +89,5 @@ class Html2Amp:
 
         self.transform_img_tags(el)
         self.remove_invalid_tags(el)
+        self.remove_invalid_attributes(el)
         return html.tostring(el)
