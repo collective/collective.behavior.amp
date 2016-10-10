@@ -6,6 +6,15 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Add class for social icon <div> tag.
+  [agnogueira]
+
+- Move description to article header.
+  [agnogueira]
+
+- Add missing script for <amp-analytics> component.
+  [agnogueira]
+
 - Do not fail if an image doesn't have a ``src`` attribute,
   or if it was referenced inside the body text as an external resource.
   [hvelarde]
@@ -21,15 +30,6 @@ There's a frood who really knows where his towel is.
 
 - Fix various exceptions raised when content has Archetypes based lead images.
   [hvelarde]
-
-- Add class for social icon div.
-  [agnogueira]
-
-- Move description to article header
-  [agnogueira]
-
-- Add scripts for analytics and iframe
-  [agnogueira]
 
 
 1.0a2 (2016-10-06)
