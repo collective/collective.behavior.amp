@@ -43,18 +43,37 @@ class Html2AmpTestCase(unittest.TestCase):
         code = (
             '<div>'
             '<img src="/foo.jpg" width="800" height="600" />'
-            '<iframe src="/bar" width="800" height="600" /></iframe>'
+            '<iframe src="/bar" width="800" height="600"></iframe>'
             '</div>'
         )
         el = html.fromstring(code)
         self.util.remove_invalid_tags(el)
         self.assertEqual(html.tostring(el), '<div></div>')
 
+    def test_remove_invalid_attributes(self):
+        code = (
+            '<div>'
+            '<div on="valid" onclick="doclick()"></div>'
+            '<div style="display:none"></div>'
+            '<div xmlns="namespace" xml:space="space"></div>'
+            '</div>'
+        )
+        el = html.fromstring(code)
+        self.util.remove_invalid_attributes(el)
+        expected = (
+            '<div>'
+            '<div on="valid"></div>'
+            '<div></div>'
+            '<div></div>'
+            '</div>'
+        )
+        self.assertEqual(html.tostring(el), expected)
+
     def test_utility(self):
         code = (
             '<p>Lorem ipsum.</p>'
             '<img class="foo" src="resolveuid/{0}" />'
-            '<iframe src="/bar" width="800" height="600" /></iframe>'
+            '<iframe src="/bar" width="800" height="600"></iframe>'
             '<p>Neque porro.</p>'
         ).format(self.image.UID())
         expected = (
