@@ -6,7 +6,7 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
-- Clean up invalid HTML attributes  (closes `#26`_).
+- Clean up invalid AMP HTML attributes (fixes `#26`_).
   [rodfersou]
 
 - Explicitly disable any Diazo theme on the AMP HTML view.

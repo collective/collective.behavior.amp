@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""Utility to transform HTML into AMP HTML.
+
+See: https://www.ampproject.org/docs/reference/spec.html
+"""
 from collective.behavior.amp.config import AMP_INVALID_ELEMENTS
 from collective.behavior.amp.logger import logger
 from lxml import html
@@ -64,10 +68,9 @@ class Html2Amp:
         :type el: lxml.html.HtmlElement
         """
         for tag in el.iterdescendants():
-            keys = tag.attrib.keys()
-            for key in keys:
+            for key in tag.attrib.keys():
                 remove = False
-                if key != 'on' and key.startswith('on'):
+                if key.startswith('on') and key != 'on':
                     remove = True
                 elif key == 'style':
                     remove = True
@@ -76,7 +79,7 @@ class Html2Amp:
                 if remove:
                     del tag.attrib[key]
                     logger.debug(
-                        '"{0}" attribute was removed from tag <{1}>'.format(keys, tag.tag))
+                        '"{0}" attribute was removed from tag <{1}>'.format(key, tag.tag))
 
     def __call__(self, code):
         el = html.fromstring(code)
