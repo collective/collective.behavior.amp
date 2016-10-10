@@ -34,6 +34,11 @@ class Html2Amp:
             try:
                 # src="resolveuid/979bede6b93e46d386be493d852ed744"
                 uuid = tag.attrib['src'].split('/')[1]
+            except KeyError:
+                # FIXME: the image has no src attribute; we should log
+                #        an error message referencing the context
+                # https://github.com/collective/collective.behavior.amp/issues/30
+                continue
             except IndexError:
                 # FIXME: what we should do if the <img> tag references
                 #        an external resource?
