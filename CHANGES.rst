@@ -22,6 +22,15 @@ There's a frood who really knows where his towel is.
 - Fix various exceptions raised when content has Archetypes based lead images.
   [hvelarde]
 
+- Add class for social icon div.
+  [agnogueira]
+
+- Move description to article header
+  [agnogueira]
+
+- Add scripts for analytics and iframe
+  [agnogueira]
+
 
 1.0a2 (2016-10-06)
 ------------------
