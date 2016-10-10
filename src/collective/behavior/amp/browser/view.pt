@@ -170,7 +170,7 @@
         </div>
       </header>
 
-      <div tal:condition="view/has_sociallike">
+      <div tal:condition="view/has_sociallike" class="social-icons">
         <tal:buttons repeat="button view/share_buttons">
           <amp-social-share tal:condition="python:button == 'facebook'"
               tal:attributes="type button;
