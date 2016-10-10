@@ -137,6 +137,9 @@
 
         <h1 tal:content="context/title">Title</h1>
 
+        <p tal:condition="context/description"
+            tal:content="context/description">Description</p>
+
         <div class="amp-byline" tal:condition="view/show_byline">
           <span tal:condition="view/author">
             <tal:i18n i18n:translate="label_by_author">
@@ -183,9 +186,6 @@
               height="32"></amp-social-share>
         </tal:buttons>
       </div>
-
-      <p tal:condition="context/description"
-          tal:content="context/description">Description</p>
 
       <p tal:replace="structure view/text">Body text</p>
     </article>
