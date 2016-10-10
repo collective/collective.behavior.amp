@@ -30,8 +30,16 @@ class Html2Amp:
         # they should include: src, width, height and alt attributes only
         for tag in el.xpath('//img'):
             tag.tag = 'amp-img'
-            # src="resolveuid/979bede6b93e46d386be493d852ed744"
-            uuid = tag.attrib['src'].split('/')[1]
+
+            try:
+                # src="resolveuid/979bede6b93e46d386be493d852ed744"
+                uuid = tag.attrib['src'].split('/')[1]
+            except IndexError:
+                # FIXME: what we should do if the <img> tag references
+                #        an external resource?
+                # https://github.com/collective/collective.behavior.amp/issues/29
+                continue
+
             obj = uuidToObject(uuid)
             if obj is None:
                 continue

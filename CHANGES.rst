@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Do not fail if an image was referenced inside the body text as an external resource.
+  [hvelarde]
+
 - Clean up invalid AMP HTML attributes (fixes `#26`_).
   [rodfersou]
 
