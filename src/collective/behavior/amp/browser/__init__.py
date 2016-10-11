@@ -282,12 +282,11 @@ class AMPView(BrowserView):
         for item in relations:
             # Skip broken relations (deleted content)
             # https://github.com/plone/plone.app.relationfield/issues/10
-            if item.isBroken():
+            if item.isBroken() or item.to_path is None:
                 continue
-            path = item.to_path
             # the query will return an empty list if the user has no
             # permission to see the target object
-            brains.extend(catalog(path=dict(query=path, depth=0)))
+            brains.extend(catalog(path=dict(query=item.to_path, depth=0)))
         return brains
 
 
