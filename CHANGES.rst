@@ -6,7 +6,7 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
-- Fix exception when related items relation is broken.
+- Avoid exception when related items relation is broken.
   [rodfersou]
 
 - Fix loading order for main AMP script.
