@@ -280,6 +280,10 @@ class AMPView(BrowserView):
         catalog = api.portal.get_tool('portal_catalog')
         brains = []
         for item in relations:
+            # Skip broken relations (deleted content)
+            # https://github.com/plone/plone.app.relationfield/issues/10
+            if item.isBroken():
+                continue
             path = item.to_path
             # the query will return an empty list if the user has no
             # permission to see the target object
