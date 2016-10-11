@@ -270,7 +270,7 @@ class AMPView(BrowserView):
 
     def relations2brains(self, relations):
         """Return a list of brains based on a list of relations. Will filter
-        relations if the user has no permission to access the content.
+        relations if the user has no permission to access the target content.
         :param relations: object relations
         :type relations: list
         :returns: catalog brains
@@ -280,14 +280,12 @@ class AMPView(BrowserView):
         catalog = api.portal.get_tool('portal_catalog')
         brains = []
         for item in relations:
-            # Skip broken relations (deleted content)
-            # https://github.com/plone/plone.app.relationfield/issues/10
-            if item.isBroken():
+            try:
+                brains.extend(catalog(path=dict(query=item.to_path, depth=0)))
+            except TypeError:
+                # Skip broken relations (deleted content)
+                # https://github.com/plone/plone.app.relationfield/issues/10
                 continue
-            path = item.to_path
-            # the query will return an empty list if the user has no
-            # permission to see the target object
-            brains.extend(catalog(path=dict(query=path, depth=0)))
         return brains
 
 
