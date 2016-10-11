@@ -295,5 +295,4 @@ class AMPViewlet(ViewletBase):
 
     @property
     def enabled(self):
-        if IAMP.providedBy(self.context):
-            return True
+        return IAMP.providedBy(self.context)
