@@ -36,8 +36,10 @@ There's a frood who really knows where his towel is.
 
 - Fix various exceptions raised when content has Archetypes based lead images.
   [hvelarde]
-
-
+  
+- Fix CSS syntax for displaying logo position.
+  [kakshay21]
+  
 1.0a2 (2016-10-06)
 ------------------
 
