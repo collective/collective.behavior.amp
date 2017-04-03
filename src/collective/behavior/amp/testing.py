@@ -15,6 +15,7 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 
+
 IS_PLONE_5 = api.env.plone_version().startswith('5')
 
 

@@ -3,6 +3,7 @@ from plone import api
 
 import pkg_resources
 
+
 try:
     pkg_resources.get_distribution('sc.social.like')
 except pkg_resources.DistributionNotFound:
