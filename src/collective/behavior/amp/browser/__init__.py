@@ -21,6 +21,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import json
 
+
 if HAS_SOCIALLIKE:
     from sc.social.like.interfaces import ISocialLikeSettings
 

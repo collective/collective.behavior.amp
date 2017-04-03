@@ -6,6 +6,7 @@ from zope.interface import Invalid
 
 import unittest
 
+
 VALID_JSON = """
 {
   "requests": {
