@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Fix CSS error in logo position.
+  [kakshay21]
+
 - Avoid exception when related items relation is broken.
   [rodfersou]
 
@@ -36,7 +39,6 @@ There's a frood who really knows where his towel is.
 
 - Fix various exceptions raised when content has Archetypes based lead images.
   [hvelarde]
-
 
 1.0a2 (2016-10-06)
 ------------------
