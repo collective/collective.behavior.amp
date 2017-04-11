@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from collective.behavior.amp import _
-from collective.behavior.amp.validators import is_json
 from collective.behavior.amp.validators import is_valid_logo
+from collective.behavior.amp.validators import is_xml
 from plone.autoform import directives as form
 from plone.formwidget.namedfile.widget import NamedImageFieldWidget
 from plone.supermodel import model
@@ -33,10 +33,11 @@ class IAMPSettings(model.Schema):
     amp_analytics = schema.Text(
         title=_(u'AMP Analytics'),
         description=_(
-            u'The value (in JSON-LD format) of the "amp-analytics" element '
-            u'that will be used to measure activity on AMP documents.'
+            u'The "amp-analytics" elements that will be used to measure activity on AMP documents. '
+            u'See <a href="https://developers.google.com/analytics/devguides/collection/amp-analytics/">'
+            u'Adding Analytics to your AMP pages</a> for examples on how to implement this feature.'
         ),
         required=False,
         default=u'',
-        constraint=is_json,
+        constraint=is_xml,
     )

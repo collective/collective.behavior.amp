@@ -1,5 +1,6 @@
 <!doctype html>
-<html amp lang="en">
+<html amp lang="en"
+    tal:define="analytics view/amp_analytics">
   <head>
     <meta charset="utf-8">
     <title tal:content="context/title">Title</title>
@@ -76,7 +77,7 @@
       }
     </style>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js" tal:condition="analytics"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js" tal:condition="view/has_sociallike"></script>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -204,10 +205,7 @@
       </div>
     </aside>
 
-    <amp-analytics
-        tal:define="analytics view/amp_analytics"
-        tal:condition="analytics">
-      <script type="application/json" tal:content="analytics"></script>
-    </amp-analytics>
+    <tal:analytics replace="structure analytics" />
+
   </body>
 </html>

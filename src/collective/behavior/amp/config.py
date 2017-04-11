@@ -34,6 +34,26 @@ AMP_INVALID_ELEMENTS = [
     'style',  # valid just one tag style in the head
 ]
 
+# https://github.com/ampproject/amphtml/blob/master/extensions/amp-analytics/amp-analytics.md
+# TODO: we should provide a "Load example" button or something similar
+AMP_ANALYTICS_DEFAULT = u"""
+<amp-analytics type="googleanalytics" id="analytics1">
+  <script type="application/json">
+    {
+      "vars": {
+        "account": "UA-XXXXX-Y"
+      },
+      "triggers": {
+        "trackPageview": {
+          "on": "visible",
+          "request": "pageview"
+        }
+      }
+    }
+  </script>
+</amp-analytics>
+"""
+
 # https://github.com/ampproject/amphtml/blob/master/extensions/amp-social-share/amp-social-share.md
 SOCIAL_SHARE_PROVIDERS = (
     'email',

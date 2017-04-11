@@ -74,6 +74,9 @@ A new view named ``@@amp`` will become available in all instances of your conten
 The view will display the logo of your site, a global navigation sidebar, and the main fields of your content type (including title, byline, resume, body text, and related items, if available);
 it will also include metadata as structured data.
 
+Capture of analytics data from AMP documents is supported using the ``amp-analytics`` tag.
+Refer to the examples in `Adding Analytics to your AMP pages <https://developers.google.com/analytics/devguides/collection/amp-analytics/>`_ for more information on how to use this feature.
+
 If  `sc.social.like <https://pypi.python.org/pypi/sc.social.like>`_ is installed,
 a list of social share buttons honoring the configured plugins will be displayed between the byline and the resume.
 Note that you have to enter a valid Facebook ``app_id`` if you want to enable the Facebook button.

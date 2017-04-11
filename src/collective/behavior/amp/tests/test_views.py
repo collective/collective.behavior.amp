@@ -192,13 +192,25 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertIsNone(amp.find('.//amp-analytics'))
 
     def test_amp_analytics(self):
+        from collective.behavior.amp.config import AMP_ANALYTICS_DEFAULT
+        import json
         amp_analytics = IAMPSettings.__identifier__ + '.amp_analytics'
-        api.portal.set_registry_record(amp_analytics, u'"foo": "bar"')
+        api.portal.set_registry_record(amp_analytics, AMP_ANALYTICS_DEFAULT)
         amp = etree.HTML(self.view())
-        analytics = amp.find('.//amp-analytics/script')
+
+        analytics = amp.find('.//amp-analytics')
         self.assertIsNotNone(analytics)
-        self.assertEqual(analytics.attrib['type'], u'application/json')
-        self.assertEqual(analytics.text, u'"foo": "bar"')
+        self.assertEqual(analytics.attrib['type'], 'googleanalytics')
+
+        script = amp.find('.//amp-analytics/script')
+        self.assertIsNotNone(script)
+        self.assertEqual(script.attrib['type'], u'application/json')
+        script = json.loads(script.text)
+        account = script['vars']['account']
+        self.assertEqual(account, u'UA-XXXXX-Y')
+        trackPageview = script['triggers']['trackPageview']
+        self.assertEqual(
+            trackPageview, {u'on': u'visible', u'request': u'pageview'})
 
     def test_no_related_items(self):
         amp = etree.HTML(self.view())
