@@ -1,40 +1,32 @@
 # -*- coding: utf-8 -*-
+from collective.behavior.amp.config import AMP_ANALYTICS_DEFAULT
 from collective.behavior.amp.tests.utils import get_file_b64encoded
-from collective.behavior.amp.validators import is_json
 from collective.behavior.amp.validators import is_valid_logo
+from collective.behavior.amp.validators import is_xml
 from zope.interface import Invalid
 
 import unittest
 
 
-VALID_JSON = """
-{
-  "requests": {
-    "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=amp-EIXNmvC5F0DQszcXToppEEyfTWUFtT7cmqEf5Vloauoka65MIRmE0Qc8RDwrbOBV&account=ampbyexample&event=${eventId}"
-  },
-  "triggers": {
-    "trackPageview": {
-      "on": "visible",
-      "request": "event",
-      "vars": {
-        "eventId": "pageview"
-      }
-    }
-  }
-}
-"""
-
-
 class ValidatorsTestCase(unittest.TestCase):
 
-    def test_is_json_empty_value(self):
-        self.assertTrue(is_json(u''))
+    def test_is_xml_empty_value(self):
+        self.assertTrue(is_xml(u''))
 
-    def test_is_json_valid_value(self):
-        self.assertTrue(is_json(VALID_JSON))
+    def test_is_xml_valid_value(self):
+        self.assertTrue(is_xml(AMP_ANALYTICS_DEFAULT))
 
-    def test_is_json_invalid_value(self):
-        self.assertFalse(is_json(u'invalid'))
+    def test_is_xml_start_tag(self):
+        with self.assertRaises(Invalid) as e:
+            is_xml(u'invalid')
+        msg = "Start tag expected, '<' not found"
+        self.assertIn(msg, e.exception.message)
+
+    def test_is_xml_tag_mismatch(self):
+        with self.assertRaises(Invalid) as e:
+            is_xml(u'<foo></bar>')
+        msg = 'Opening and ending tag mismatch: foo line 1 and bar'
+        self.assertIn(msg, e.exception.message)
 
     def test_is_valid_logo_empty_value(self):
         self.assertTrue(is_valid_logo(None))

@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Fix support for the ``<amp-analytics>`` tag.
+  [agnogueira, hvelarde]
+
 - Fix CSS error in logo position.
   [kakshay21]
 
@@ -19,9 +22,6 @@ There's a frood who really knows where his towel is.
   [agnogueira]
 
 - Move description to article header.
-  [agnogueira]
-
-- Add missing script for <amp-analytics> component.
   [agnogueira]
 
 - Do not fail if an image doesn't have a ``src`` attribute,

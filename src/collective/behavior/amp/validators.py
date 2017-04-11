@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 from collective.behavior.amp import _
 from cStringIO import StringIO
+from lxml import etree
 from PIL import Image
 from plone.formwidget.namedfile.converter import b64decode_file
 from zope.interface import Invalid
 
-import json
 
-
-def is_json(value):
-    """Checks if value contains a valid JSON string."""
+def is_xml(value):
+    """Checks if value contains a valid XML string."""
     if value == u'':
         return True
 
+    parser = etree.XMLParser()
     try:
-        json.loads(value)
+        etree.XML(value, parser)
         return True
-    except ValueError:
-        return False
+    except etree.XMLSyntaxError:
+        raise Invalid(str(parser.error_log[0]))
 
 
 def is_valid_logo(value):
