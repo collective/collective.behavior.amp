@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.behavior.amp import _
+from collective.behavior.amp.config import AMP_STICKY_AD_PLACEHOLDER
 from collective.behavior.amp.validators import is_valid_logo
 from collective.behavior.amp.validators import is_xml
 from plone.autoform import directives as form
@@ -27,6 +28,20 @@ class IAMPSettings(model.Schema):
         ),
         required=False,
         constraint=is_valid_logo,
+    )
+
+    # XXX: placeholder attribute is not working
+    form.widget('amp_sticky_ad', rows=15, placeholder=AMP_STICKY_AD_PLACEHOLDER)
+    amp_sticky_ad = schema.Text(
+        title=_(u'AMP Sticky Ad'),
+        description=_(
+            u'Adds support for ad units that always take a fixed place in the viewport. '
+            u'Fill with the "amp-ad" element that will be used as a direct child of "amp-sticky-ad". '
+            u'See <a href="https://ampbyexample.com/components/amp-sticky-ad/">amp-sticky-ad</a> for examples on how to implement this feature.'
+        ),
+        required=False,
+        default=u'',
+        constraint=is_xml,
     )
 
     form.widget('amp_analytics', rows=15)

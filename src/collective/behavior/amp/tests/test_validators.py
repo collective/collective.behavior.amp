@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.behavior.amp.config import AMP_ANALYTICS_DEFAULT
+from collective.behavior.amp.config import AMP_STICKY_AD_PLACEHOLDER
 from collective.behavior.amp.tests.utils import get_file_b64encoded
 from collective.behavior.amp.validators import is_valid_logo
 from collective.behavior.amp.validators import is_xml
@@ -15,6 +16,7 @@ class ValidatorsTestCase(unittest.TestCase):
 
     def test_is_xml_valid_value(self):
         self.assertTrue(is_xml(AMP_ANALYTICS_DEFAULT))
+        self.assertTrue(is_xml(AMP_STICKY_AD_PLACEHOLDER))
 
     def test_is_xml_start_tag(self):
         with self.assertRaises(Invalid) as e:

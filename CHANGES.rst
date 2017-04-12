@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Add support for the ``amp-sticky-ad`` tag.
+  [hvelarde]
+
 - Fix support for the ``<amp-analytics>`` tag.
   [agnogueira, hvelarde]
 

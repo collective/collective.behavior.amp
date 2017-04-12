@@ -55,6 +55,10 @@ class RegistryTestCase(unittest.TestCase):
         self.registry = getUtility(IRegistry)
         self.settings = self.registry.forInterface(IAMPSettings)
 
+    def test_amp_sticky_ad_record_in_registry(self):
+        self.assertTrue(hasattr(self.settings, 'amp_sticky_ad'))
+        self.assertEqual(self.settings.amp_sticky_ad, u'')
+
     def test_amp_analytics_record_in_registry(self):
         self.assertTrue(hasattr(self.settings, 'amp_analytics'))
         self.assertEqual(self.settings.amp_analytics, u'')
@@ -64,6 +68,7 @@ class RegistryTestCase(unittest.TestCase):
         qi.uninstallProducts(products=[PROJECTNAME])
 
         records = [
+            IAMPSettings.__identifier__ + '.amp_sticky_ad',
             IAMPSettings.__identifier__ + '.amp_analytics',
         ]
 

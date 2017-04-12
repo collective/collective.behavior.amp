@@ -34,6 +34,15 @@ AMP_INVALID_ELEMENTS = [
     'style',  # valid just one tag style in the head
 ]
 
+# https://ampbyexample.com/components/amp-sticky-ad/
+AMP_STICKY_AD_PLACEHOLDER = u"""
+<amp-ad width="320"
+    height="50"
+    type="doubleclick"
+    data-slot="/35096353/amptesting/formats/sticky">
+</amp-ad>
+"""
+
 # https://github.com/ampproject/amphtml/blob/master/extensions/amp-analytics/amp-analytics.md
 # TODO: we should provide a "Load example" button or something similar
 AMP_ANALYTICS_DEFAULT = u"""

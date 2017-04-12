@@ -187,6 +187,28 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertEqual(metadata['width'], 231)
         self.assertEqual(metadata['height'], 60)
 
+    def test_no_sticky_add(self):
+        amp = etree.HTML(self.view())
+        self.assertIsNone(amp.find('.//script[@custom-element="amp-sticky-ad"]'))
+        self.assertIsNone(amp.find('.//amp-sticky-add'))
+
+    def test_sticky_ad(self):
+        from collective.behavior.amp.config import AMP_STICKY_AD_PLACEHOLDER
+        sticky_ad = IAMPSettings.__identifier__ + '.amp_sticky_ad'
+        api.portal.set_registry_record(sticky_ad, AMP_STICKY_AD_PLACEHOLDER)
+        amp = etree.HTML(self.view())
+
+        script = amp.find('.//script[@custom-element="amp-sticky-ad"]')
+        self.assertIsNotNone(script)
+
+        sticky_ad = amp.find('.//amp-sticky-ad/amp-ad')
+        self.assertIsNotNone(sticky_ad)
+        self.assertEqual(sticky_ad.attrib['width'], '320')
+        self.assertEqual(sticky_ad.attrib['height'], '50')
+        self.assertEqual(sticky_ad.attrib['type'], 'doubleclick')
+        self.assertEqual(
+            sticky_ad.attrib['data-slot'], '/35096353/amptesting/formats/sticky')
+
     def test_no_amp_analytics(self):
         amp = etree.HTML(self.view())
         self.assertIsNone(amp.find('.//amp-analytics'))
