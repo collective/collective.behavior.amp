@@ -22,6 +22,8 @@
       i18n:attributes="title; description"
       />
 
+  <include package=".upgrades" />
+
   <utility factory=".setuphandlers.HiddenProfiles" name="collective.behavior.amp" />
 
 </configure>

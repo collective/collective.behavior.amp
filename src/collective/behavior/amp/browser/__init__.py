@@ -16,8 +16,10 @@ from plone.app.textfield.interfaces import IRichTextValue
 from plone.formwidget.namedfile.converter import b64decode_file
 from plone.memoize import view
 from plone.namedfile.file import NamedBlobImage
+from plone.registry.interfaces import IRegistry
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.component import getUtility
 
 import json
 
@@ -33,6 +35,9 @@ class AMPView(BrowserView):
     index = ViewPageTemplateFile('view.pt')
 
     def setup(self):
+        registry = getUtility(IRegistry)
+        self.settings = registry.forInterface(IAMPSettings, check=False)
+
         try:
             self.sociallike = api.content.get_view(
                 name='sl_helper', context=self.context, request=self.request)
@@ -221,6 +226,10 @@ class AMPView(BrowserView):
         caption = getattr(self.context, 'image_caption', None)
         width, height = image.getImageSize()
         return dict(url=url, caption=caption, width=width, height=height)
+
+    @property
+    def sticky_ad(self):
+        return getattr(self.settings, 'amp_sticky_ad', None)
 
     @property
     def amp_analytics(self):
