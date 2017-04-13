@@ -34,6 +34,11 @@ class AMPViewTestCase(unittest.TestCase):
         self.assertEqual(
             headers['last-modified'], rfc1123_date(self.newsitem.modified()))
 
+    def test_language(self):
+        self.request.set('LANGUAGE', 'pt_BR')
+        amp = etree.HTML(self.view())
+        self.assertEqual(amp.attrib['lang'], 'pt_BR')
+
     def _get_metadata_as_json(self, html):
         # the text inside the script tag must be a valid JSON
         import json

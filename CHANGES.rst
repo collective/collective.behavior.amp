@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Set correct language information (fixes `#43`_).
+  [hvelarde]
+
 - Add support for the ``amp-sticky-ad`` tag.
   [hvelarde]
 
@@ -56,3 +59,4 @@ There's a frood who really knows where his towel is.
 - Initial release.
 
 .. _`#26`: https://github.com/collective/collective.behavior.amp/issues/26
+.. _`#43`: https://github.com/collective/collective.behavior.amp/issues/43

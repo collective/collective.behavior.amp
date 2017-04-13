@@ -1,7 +1,8 @@
 <!doctype html>
 <html amp lang="en"
     tal:define="analytics view/amp_analytics;
-                sticky_ad view/sticky_ad">
+                sticky_ad view/sticky_ad"
+    tal:attributes="lang context/@@plone_portal_state/language">
   <head>
     <meta charset="utf-8">
     <title tal:content="context/title">Title</title>
