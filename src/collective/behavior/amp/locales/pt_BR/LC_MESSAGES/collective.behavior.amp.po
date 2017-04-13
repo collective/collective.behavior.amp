@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-10-06 20:09+0000\n"
-"PO-Revision-Date: 2016-10-06 17:19-0300\n"
+"POT-Creation-Date: 2017-04-13 20:23+0000\n"
+"PO-Revision-Date: 2017-04-13 17:52-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,15 +14,19 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 "Language: pt_BR\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: collective/behavior/amp/profiles.zcml:14
 msgid "A behavior for Dexterity-based content types that adds an AMP version of your content."
 msgstr "Um behavior para tipos de conteúdo baseados no Dexterity que adiciona uma versão AMP de seu conteúdo."
 
-#: collective/behavior/amp/interfaces.py:34
+#: collective/behavior/amp/interfaces.py:49
 msgid "AMP Analytics"
 msgstr "AMP Analytics"
+
+#: collective/behavior/amp/interfaces.py:36
+msgid "AMP Sticky Ad"
+msgstr "AMP Sticky Ad"
 
 #: collective/behavior/amp/behaviors.zcml:15
 #: collective/behavior/amp/browser/controlpanel.py:12
@@ -38,6 +42,10 @@ msgstr "Suporte para Accelerated Mobile Pages"
 msgid "Adds an AMP HTML version of your content."
 msgstr "Adiciona uma versão AMP HTML de seu conteúdo."
 
+#: collective/behavior/amp/interfaces.py:37
+msgid "Adds support for ad units that always take a fixed place in the viewport. Fill with the \"amp-ad\" element that will be used as a direct child of \"amp-sticky-ad\". See <a href=\"https://ampbyexample.com/components/amp-sticky-ad/\">amp-sticky-ad</a> for examples on how to implement this feature."
+msgstr "Adiciona suporte para publicidade que fica fixa na parte inferior do viewport. Deve ser informado o elemento \"amp-ad\" que será usado dentro do elemento \"amp-sticky-ad\". Confira exemplos de como implementar esta funcionalidade em <a href=\"https://ampbyexample.com/components/amp-sticky-ad/\">amp-sticky-ad</a>."
+
 #: collective/behavior/amp/validators.py:39
 msgid "Image should be no wider than 600px, and no taller than 60px."
 msgstr "A imagem não deve ser mais larga do que 600px, nem mais alta do que 60px."
@@ -46,7 +54,7 @@ msgstr "A imagem não deve ser mais larga do que 600px, nem mais alta do que 60p
 msgid "Image should have a wide aspect ratio."
 msgstr "A image deve estar em formato paisagem."
 
-#: collective/behavior/amp/interfaces.py:23
+#: collective/behavior/amp/interfaces.py:24
 msgid "Publisher Logo"
 msgstr "Logo do editor"
 
@@ -54,18 +62,38 @@ msgstr "Logo do editor"
 msgid "Settings for AMP integration."
 msgstr "Configuração da integração AMP."
 
-#: collective/behavior/amp/interfaces.py:24
+#: collective/behavior/amp/interfaces.py:50
+msgid "The \"amp-analytics\" elements that will be used to measure activity on AMP documents. See <a href=\"https://developers.google.com/analytics/devguides/collection/amp-analytics/\">Adding Analytics to your AMP pages</a> for examples on how to implement this feature."
+msgstr "Os elementos \"amp-analytics\"  que serão utilizados para medir a atividade nos documentos AMP. Confira exemplos de como implementar esta funcionalidade em <a href=\"https://developers.google.com/analytics/devguides/collection/amp-analytics/\">Adição do Google Analytics às suas páginas AMP</a>"
+
+#: collective/behavior/amp/interfaces.py:25
 msgid "The logo of the publisher. Should have a wide aspect ratio, and should be no wider than 600px, and no taller than 60px."
 msgstr "O logo do editor. Deve estar em formato paisagem, e não deve ser mais largo do que 600px, nem mais alto do que 60px."
-
-#: collective/behavior/amp/interfaces.py:35
-msgid "The value (in JSON-LD format) of the \"amp-analytics\" element that will be used to measure activity on AMP documents."
-msgstr "O valor (em formato JSON-LD) do elemento \"amp-analytics\" que será usado para medir a atividade nos documentos AMP."
 
 #: collective/behavior/amp/profiles.zcml:23
 msgid "Uninstalls collective.behavior.amp."
 msgstr "Desinstala o collective.behavior.amp."
 
+#. Default: "last modified"
+#: collective/behavior/amp/browser/view.pt:172
+msgid "box_last_modified"
+msgstr "última modificação"
+
+#. Default: "published"
+#: collective/behavior/amp/browser/view.pt:163
+msgid "box_published"
+msgstr "publicado"
+
 #: collective/behavior/amp/profiles.zcml:23
 msgid "collective.behavior.amp: uninstall"
 msgstr "collective.behavior.amp: uninstall"
+
+#. Default: "by ${author}"
+#: collective/behavior/amp/browser/view.pt:154
+msgid "label_by_author"
+msgstr "por ${author}"
+
+#. Default: "Related content"
+#: collective/behavior/amp/browser/view.pt:204
+msgid "label_related_items"
+msgstr "Conteúdo relacionado"

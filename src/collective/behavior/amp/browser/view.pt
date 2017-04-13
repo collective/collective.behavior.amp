@@ -1,5 +1,8 @@
 <!doctype html>
 <html amp lang="en"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    i18n:domain="collective.behavior.amp"
     tal:define="analytics view/amp_analytics;
                 sticky_ad view/sticky_ad"
     tal:attributes="lang context/@@plone_portal_state/language">
