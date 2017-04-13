@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0a3 (unreleased)
 ------------------
 
+- Fix i18n and update Brazilian Portuguese and Spanish translations (fixes `#44`_).
+  [hvelarde]
+
 - Set correct language information (fixes `#43`_).
   [hvelarde]
 
@@ -60,3 +63,4 @@ There's a frood who really knows where his towel is.
 
 .. _`#26`: https://github.com/collective/collective.behavior.amp/issues/26
 .. _`#43`: https://github.com/collective/collective.behavior.amp/issues/43
+.. _`#44`: https://github.com/collective/collective.behavior.amp/issues/44

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-06 20:09+0000\n"
+"POT-Creation-Date: 2017-04-13 20:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,12 @@ msgstr ""
 msgid "A behavior for Dexterity-based content types that adds an AMP version of your content."
 msgstr ""
 
-#: collective/behavior/amp/interfaces.py:34
+#: collective/behavior/amp/interfaces.py:49
 msgid "AMP Analytics"
+msgstr ""
+
+#: collective/behavior/amp/interfaces.py:36
+msgid "AMP Sticky Ad"
 msgstr ""
 
 #: collective/behavior/amp/behaviors.zcml:15
@@ -36,6 +40,10 @@ msgstr ""
 msgid "Adds an AMP HTML version of your content."
 msgstr ""
 
+#: collective/behavior/amp/interfaces.py:37
+msgid "Adds support for ad units that always take a fixed place in the viewport. Fill with the \"amp-ad\" element that will be used as a direct child of \"amp-sticky-ad\". See <a href=\"https://ampbyexample.com/components/amp-sticky-ad/\">amp-sticky-ad</a> for examples on how to implement this feature."
+msgstr ""
+
 #: collective/behavior/amp/validators.py:39
 msgid "Image should be no wider than 600px, and no taller than 60px."
 msgstr ""
@@ -44,7 +52,7 @@ msgstr ""
 msgid "Image should have a wide aspect ratio."
 msgstr ""
 
-#: collective/behavior/amp/interfaces.py:23
+#: collective/behavior/amp/interfaces.py:24
 msgid "Publisher Logo"
 msgstr ""
 
@@ -52,18 +60,38 @@ msgstr ""
 msgid "Settings for AMP integration."
 msgstr ""
 
-#: collective/behavior/amp/interfaces.py:24
-msgid "The logo of the publisher. Should have a wide aspect ratio, and should be no wider than 600px, and no taller than 60px."
+#: collective/behavior/amp/interfaces.py:50
+msgid "The \"amp-analytics\" elements that will be used to measure activity on AMP documents. See <a href=\"https://developers.google.com/analytics/devguides/collection/amp-analytics/\">Adding Analytics to your AMP pages</a> for examples on how to implement this feature."
 msgstr ""
 
-#: collective/behavior/amp/interfaces.py:35
-msgid "The value (in JSON-LD format) of the \"amp-analytics\" element that will be used to measure activity on AMP documents."
+#: collective/behavior/amp/interfaces.py:25
+msgid "The logo of the publisher. Should have a wide aspect ratio, and should be no wider than 600px, and no taller than 60px."
 msgstr ""
 
 #: collective/behavior/amp/profiles.zcml:23
 msgid "Uninstalls collective.behavior.amp."
 msgstr ""
 
+#. Default: "last modified"
+#: collective/behavior/amp/browser/view.pt:172
+msgid "box_last_modified"
+msgstr ""
+
+#. Default: "published"
+#: collective/behavior/amp/browser/view.pt:163
+msgid "box_published"
+msgstr ""
+
 #: collective/behavior/amp/profiles.zcml:23
 msgid "collective.behavior.amp: uninstall"
+msgstr ""
+
+#. Default: "by ${author}"
+#: collective/behavior/amp/browser/view.pt:154
+msgid "label_by_author"
+msgstr ""
+
+#. Default: "Related content"
+#: collective/behavior/amp/browser/view.pt:204
+msgid "label_related_items"
 msgstr ""
