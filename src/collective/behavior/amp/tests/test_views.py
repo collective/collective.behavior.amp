@@ -189,6 +189,7 @@ class AMPViewTestCase(unittest.TestCase):
 
     def test_no_sticky_add(self):
         amp = etree.HTML(self.view())
+        self.assertIsNone(amp.find('.//script[@custom-element="amp-ad"]'))
         self.assertIsNone(amp.find('.//script[@custom-element="amp-sticky-ad"]'))
         self.assertIsNone(amp.find('.//amp-sticky-add'))
 
@@ -198,8 +199,8 @@ class AMPViewTestCase(unittest.TestCase):
         api.portal.set_registry_record(sticky_ad, AMP_STICKY_AD_PLACEHOLDER)
         amp = etree.HTML(self.view())
 
-        script = amp.find('.//script[@custom-element="amp-sticky-ad"]')
-        self.assertIsNotNone(script)
+        self.assertIsNotNone(amp.find('.//script[@custom-element="amp-ad"]'))
+        self.assertIsNotNone(amp.find('.//script[@custom-element="amp-sticky-ad"]'))
 
         sticky_ad = amp.find('.//amp-sticky-ad/amp-ad')
         self.assertIsNotNone(sticky_ad)
