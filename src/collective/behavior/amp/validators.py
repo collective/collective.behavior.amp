@@ -5,7 +5,7 @@ from lxml import etree
 from PIL import Image
 from plone.formwidget.namedfile.converter import b64decode_file
 from zope.interface import Invalid
-
+import requests
 
 def is_xml(value):
     """Checks if value contains a valid XML string."""
