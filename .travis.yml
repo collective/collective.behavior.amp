@@ -18,6 +18,7 @@ install:
 - python bootstrap.py
 - bin/buildout buildout:test-eggs=$TEST_EGGS annotate
 - bin/buildout buildout:test-eggs=$TEST_EGGS
+- pip install requests
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
