@@ -52,5 +52,3 @@ def is_valid_tags(value):
         print url, 'failed!'
         for e in validation['errors']:
             print e
-
-

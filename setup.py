@@ -59,6 +59,7 @@ setup(
         'zope.i18nmessageid',
         'zope.interface',
         'zope.schema',
+        'requests'
     ],
     extras_require={
         'test': [
