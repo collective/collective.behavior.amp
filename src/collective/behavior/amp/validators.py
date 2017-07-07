@@ -5,7 +5,7 @@ from lxml import etree
 from PIL import Image
 from plone.formwidget.namedfile.converter import b64decode_file
 from zope.interface import Invalid
-
+import requests
 
 def is_xml(value):
     """Checks if value contains a valid XML string."""
@@ -40,3 +40,15 @@ def is_valid_logo(value):
             u'Image should be no wider than 600px, and no taller than 60px.'))
 
     return True
+
+
+def is_valid_tags(value):
+    url = 'www.cartacapital.com.br/internacional/jean-luc-melenchon-o-esquerdista-que-sacode-a-campanha-presidencial-francesa/@@amp'
+    r = requests.get('https://amp.cloudflare.com/q/' + url)
+    validation = r.json()
+    if validation['valid']:
+        print url, 'is valid'
+    else:
+        print url, 'failed!'
+        for e in validation['errors']:
+            print e

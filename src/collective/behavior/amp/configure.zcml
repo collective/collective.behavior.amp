@@ -7,6 +7,12 @@
 
   <five:registerPackage package="." />
 
+  <subscriber
+    for="zope.lifecycleevent.interfaces.IObjectModifiedEvent
+         zope.publisher.interfaces.IPublishTraverse"
+    handler=".validators.is_valid_tags"
+    />
+
   <include package="Products.CMFCore" file="permissions.zcml" />
 
   <permission
