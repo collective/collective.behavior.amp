@@ -15,6 +15,13 @@ class IAddOnLayer(Interface):
     """A layer specific for this add-on product."""
 
 
+class IAMPPixelProvider(Interface):
+    """Adapter for amp-pixel tags."""
+
+    def pixel(self):
+        """Return amp-pixel tag if available."""
+
+
 class IAMPSettings(model.Schema):
 
     """Schema for the control panel form."""
