@@ -6,7 +6,8 @@ There's a frood who really knows where his towel is.
 1.0a4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add support for WhatsApp in ``<amp-social-share>`` tag.
+  [hvelarde]
 
 
 1.0a3 (2017-04-13)

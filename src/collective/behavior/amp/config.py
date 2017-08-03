@@ -71,6 +71,7 @@ SOCIAL_SHARE_PROVIDERS = (
     'linkedin',
     'pinterest',
     'twitter',
+    'whatsapp',
 )
 
 IS_PLONE_5 = api.env.plone_version().startswith('5')
