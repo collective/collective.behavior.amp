@@ -19,4 +19,10 @@
   <include file="behaviors.zcml" />
   <include file="profiles.zcml" />
 
+  <subscriber
+      for="collective.behavior.amp.behaviors.IAMP
+           Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+      handler=".subscribers.validate_amp"
+      />
+
 </configure>
