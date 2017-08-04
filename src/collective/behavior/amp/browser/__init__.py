@@ -6,6 +6,7 @@ from collective.behavior.amp.behaviors import IAMP
 from collective.behavior.amp.config import HAS_SOCIALLIKE
 from collective.behavior.amp.config import IS_PLONE_5
 from collective.behavior.amp.config import SOCIAL_SHARE_PROVIDERS
+from collective.behavior.amp.interfaces import IAMPPixelProvider
 from collective.behavior.amp.interfaces import IAMPSettings
 from collective.behavior.amp.utils import Html2Amp
 from cStringIO import StringIO
@@ -20,6 +21,7 @@ from plone.registry.interfaces import IRegistry
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
+from zope.component import queryAdapter
 
 import json
 
@@ -230,6 +232,12 @@ class AMPView(BrowserView):
     @property
     def sticky_ad(self):
         return getattr(self.settings, 'amp_sticky_ad', None)
+
+    @property
+    def pixel(self):
+        adapter = queryAdapter(self.context, IAMPPixelProvider)
+        if adapter is not None:
+            return adapter.pixel()
 
     @property
     def amp_analytics(self):

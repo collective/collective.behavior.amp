@@ -217,6 +217,8 @@
         tal:content="structure sticky_ad">
     </amp-sticky-ad>
 
+    <amp-pixel tal:replace="structure view/pixel" />
+
     <tal:analytics replace="structure analytics" />
 
   </body>

@@ -6,6 +6,10 @@ There's a frood who really knows where his towel is.
 1.0a4 (unreleased)
 ------------------
 
+- Add support for the ``<amp-pixel>`` tag;
+  see package documentation for more information on this new feature.
+  [hvelarde]
+
 - Add support for WhatsApp in ``<amp-social-share>`` tag.
   [hvelarde]
 

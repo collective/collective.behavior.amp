@@ -102,3 +102,34 @@ and adds a link to it in the header of any other view:
   <link rel="amphtml" href="${context/absolute_url}/@@amp">
 
 The body text is processed to remove invalid elements or to replace them by the corresponding AMP components.
+
+Tracking pixels
+^^^^^^^^^^^^^^^
+
+AMP implements tracking pixels using the ``<amp-pixel>`` tag;
+to add support for this feature you need to write an adapter that implements the ``IAMPPixelProvider`` interface like this:
+
+.. code-block:: xml
+
+    <adapter factory="my.package.adapter.AMPPixelProvider" />
+
+
+.. code-block:: python
+
+    from collective.behavior.amp.behaviors import IAMP
+    from collective.behavior.amp.interfaces import IAMPPixelProvider
+    from zope.component import adapter
+    from zope.interface import implementer
+
+    @implementer(IAMPPixelProvider)
+    @adapter(IAMP)
+    class AMPPixelProvider(object):
+        """Adapter for amp-pixel tags."""
+
+        def __init__(self, context):
+            self.context = context
+
+        def pixel(self):
+            return u'<amp-pixel src="https://example.com/tracker/foo" layout="nodisplay"></amp-pixel>'
+
+For more information see the `tag documentation <https://www.ampproject.org/docs/reference/components/amp-pixel>`_.
