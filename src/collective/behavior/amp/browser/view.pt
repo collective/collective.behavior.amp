@@ -4,7 +4,6 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     i18n:domain="collective.behavior.amp"
     tal:define="analytics view/amp_analytics;
-                pixel view/pixel;
                 sticky_ad view/sticky_ad"
     tal:attributes="lang context/@@plone_portal_state/language">
   <head>
@@ -218,7 +217,7 @@
         tal:content="structure sticky_ad">
     </amp-sticky-ad>
 
-    <amp-pixel tal:condition="pixel" tal:replace="structure pixel" />
+    <amp-pixel tal:replace="structure view/pixel" />
 
     <tal:analytics replace="structure analytics" />
 
