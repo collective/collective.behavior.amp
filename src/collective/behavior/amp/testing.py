@@ -37,7 +37,7 @@ class Fixture(PloneSandboxLayer):
 
         self.applyProfile(portal, 'collective.behavior.amp:default')
         enable_amp_behavior('News Item')
-        portal.portal_workflow.setDefaultChain('one_state_workflow')
+        portal.portal_workflow.setDefaultChain('simple_publication_workflow')
 
 
 FIXTURE = Fixture()
